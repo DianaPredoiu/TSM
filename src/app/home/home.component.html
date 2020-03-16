@@ -1,9 +1,18 @@
-﻿<h1>Hi {{currentUser.firstName}}!</h1>
-<p>You're logged in with Angular 7!!</p>
-<h3>All registered users:</h3>
-<ul>
-    <li *ngFor="let user of users">
-        {{user.username}} ({{user.firstName}} {{user.lastName}})
-        - <a (click)="deleteUser(user.id)" class="text-danger">Delete</a>
-    </li>
-</ul>
+﻿<h1 align="center">Hi {{currentUser.firstName}}!</h1><br/>
+<br/>
+<h3 align="center">All your hobbies are:</h3>
+
+<table align="center" class="table table-dark">
+    <thead>
+        <tr>
+            <th scope="col">Hobby Name</th>
+            <th scope="col">Hobby Type</th>
+          </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let hobby of hobbies">
+            <td>{{hobby.hobbyName}}</td>
+            <td>{{hobby._HobbyType}}</td>
+        </tr>
+    </tbody> 
+  </table>
