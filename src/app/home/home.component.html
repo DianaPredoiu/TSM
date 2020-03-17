@@ -1,18 +1,16 @@
-﻿<h1 align="center">Hi {{currentUser.firstName}}!</h1><br/>
-<br/>
-<h3 align="center">All your hobbies are:</h3>
+﻿
+  <div class="container" align="center">
 
-<table align="center" class="table table-dark">
-    <thead>
-        <tr>
-            <th scope="col">Hobby Name</th>
-            <th scope="col">Hobby Type</th>
-          </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let hobby of hobbies">
-            <td>{{hobby.hobbyName}}</td>
-            <td>{{hobby._HobbyType}}</td>
-        </tr>
-    </tbody> 
-  </table>
+   
+        <a routerLink="/viewHobbies" class="btn btn-outline-dark btn-lg">See your hobbies</a>
+    
+
+    
+        <a routerLink="/addHobby" class="btn btn-outline-dark btn-lg">Add hobby</a>
+    
+
+    
+        <a routerLink="/deleteHobby" class="btn btn-outline-dark btn-lg">Delete hobby</a>
+    
+
+  </div>
