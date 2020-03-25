@@ -1,5 +1,5 @@
 export class  Hobby {
-    id:number;
+    idHobby:number;
     hobbyName:string;
     hobbyType:string;
 }

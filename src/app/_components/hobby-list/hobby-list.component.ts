@@ -6,18 +6,19 @@ import { UserService, AuthenticationService,QueryService } from '@/_services';
 
 
 @Component({ templateUrl: 'hobby-list.component.html' })
-export class HobbyListComponent implements OnInit, OnDestroy {
+
+export class HobbyListComponent implements OnInit{
+
     currentUser: User;
     currentUserSubscription: Subscription;
     users: User[] = [];
     hobbies: Hobby[]=[];
 
-
     constructor(
         private authenticationService: AuthenticationService,
-        private userService: UserService,
         private queryService:QueryService
-    ) {
+    ) 
+    {
         this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
             this.currentUser = user;
         });
@@ -27,27 +28,10 @@ export class HobbyListComponent implements OnInit, OnDestroy {
         this.listAllHobbies();
     }
 
-    ngOnDestroy() {
-        // unsubscribe to ensure no memory leaks
-        this.currentUserSubscription.unsubscribe();
-    }
+    private listAllHobbies(){   
 
-    deleteUser(id: number) {
-        this.userService.delete(id).pipe(first()).subscribe(() => {
-            this.loadAllUsers()
-        });
-    }
-
-    private loadAllUsers() {
-        this.userService.getAll().pipe(first()).subscribe(users => {
-            this.users = users;
-        });
-        
-    }
-
-    private listAllHobbies()
-    {
-        this.queryService.getHobiesList(this.currentUser.id).pipe(first()).subscribe(hobbies=> {this.hobbies = hobbies});
+        console.log(this.currentUser.id);
+        this.queryService.getHobiesList(this.currentUser).pipe(first()).subscribe(hobbies=> {this.hobbies = hobbies});
        
     }
 }

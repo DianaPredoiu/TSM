@@ -1,4 +1,4 @@
-﻿
+﻿<div class="grid" align="center">
   <div class="container" align="center">
 
    
@@ -11,6 +11,18 @@
 
     
         <a routerLink="/deleteHobby" class="btn btn-outline-dark btn-lg">Delete hobby</a>
-    
+
 
   </div>
+  <br>
+  <br>
+  <div class="container-lg" *ngIf="this.currentUser.isAdmin">
+
+     <a routerLink="/hobbyData" class="btn btn-outline-dark btn-lg">Modify hobby related data</a>
+    
+
+    
+     <a routerLink="/userData" class="btn btn-outline-dark btn-lg">Modify user related data</a>
+     
+  </div>
+</div>

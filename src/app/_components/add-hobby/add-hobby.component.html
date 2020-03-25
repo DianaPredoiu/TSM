@@ -1,0 +1,19 @@
+<h1 align="center">Hi {{currentUser.firstName}}!</h1><br/>
+<br/>
+<h3 align="center">You can choose from the folowing hobbies</h3>
+
+<div class="container">
+
+    <table align="center" class="table">
+        <tbody>
+            <tr *ngFor="let hobby of hobbies">
+                <td>{{hobby.hobbyName}}</td>
+                <td>{{hobby._HobbyType}}</td>
+                <td>{{hobby.idHobby}}</td>
+                <td><button type="button" (click)="addHobby(hobby.idHobby)" class="btn btn-dark">Add</button></td>
+            </tr>
+        </tbody> 
+
+      </table>
+
+</div>
