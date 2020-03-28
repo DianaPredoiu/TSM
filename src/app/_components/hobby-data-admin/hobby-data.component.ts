@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { first } from 'rxjs/operators';
 import { Hobby } from '@/_models';
 import {HobbyService } from '@/_services';

@@ -1,7 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import {User,Hobby, User_Hobby} from '@/_models';
 import { Subscription } from 'rxjs';
-import {AuthenticationService,QueryService,UserHobbyService} from '@/_services';
+import {AuthenticationService,UserHobbyService,HobbyService} from '@/_services';
 import { first } from 'rxjs/operators';
 
 
@@ -16,8 +16,8 @@ export class DeleteHobbyComponent implements OnInit{
 
     constructor(
         private authenticationService: AuthenticationService,
-        private queryService:QueryService,
-        private userHobbyService:UserHobbyService
+        private userHobbyService:UserHobbyService,
+        private hobbyService:HobbyService
     ) {
         this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
             this.currentUser = user;
@@ -33,7 +33,7 @@ export class DeleteHobbyComponent implements OnInit{
 
     private listAllHobbies(){
         
-        this.queryService.getHobiesList(this.currentUser).pipe(first()).subscribe(hobbies=> {this.hobbies = hobbies});
+        this.hobbyService.getHobiesList(this.currentUser).pipe(first()).subscribe(hobbies=> {this.hobbies = hobbies});
        
     }
     getAllUserHobby(){

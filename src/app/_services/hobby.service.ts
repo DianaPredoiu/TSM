@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Hobby } from '@/_models';
-
+import { User } from '@/_models';
 
 @Injectable({ providedIn: 'root' })
+
 export class HobbyService {
     constructor(private http: HttpClient) { }
+
 
     getAll() {
         return this.http.get<Hobby[]>(`${config.apiUrl}/hobby`);
@@ -27,5 +29,14 @@ export class HobbyService {
 
     add(hobby:Hobby) {
         return this.http.post(`${config.apiUrl}/hobby/add`,hobby);
+    }
+
+    getHobiesList(user:User)  {
+        
+        return this.http.get<Hobby[]>(`${config.apiUrl}/UserHobbiesView/listhobbies/${user.id}`);
+    }
+
+    getOptionsList(id: number)  {
+        return this.http.get<Hobby[]>(`${config.apiUrl}/UserHobbiesView/listoptions/${id}`);
     }
 }

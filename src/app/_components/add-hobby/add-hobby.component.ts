@@ -1,7 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import {User,Hobby, User_Hobby} from '@/_models';
 import { Subscription} from 'rxjs';
-import {  AuthenticationService,QueryService,UserHobbyService} from '@/_services';
+import {  AuthenticationService,UserHobbyService,HobbyService} from '@/_services';
 import { first } from 'rxjs/operators';
 
 @Component({ templateUrl: 'add-hobby.component.html' })
@@ -14,8 +14,8 @@ export class AddHobbyComponent implements OnInit{
 
     constructor(
         private authenticationService: AuthenticationService,
-        private queryService:QueryService,
-        private userHobbyService:UserHobbyService
+        private userHobbyService:UserHobbyService,
+        private hobbyService:HobbyService
     ) 
     {
         this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
@@ -30,7 +30,7 @@ export class AddHobbyComponent implements OnInit{
 
     private loadAllHobbies(){
 
-        this.queryService.getOptionsList(this.currentUser.id).pipe(first()).subscribe(hobbies=>{this.hobbies=hobbies});
+        this.hobbyService.getOptionsList(this.currentUser.id).pipe(first()).subscribe(hobbies=>{this.hobbies=hobbies});
     }
 
     addHobby(idHobby:number){
