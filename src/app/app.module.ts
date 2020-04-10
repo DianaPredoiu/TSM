@@ -2,23 +2,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule }    from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
-// used to create fake backend
-import { fakeBackendProvider } from './_helpers';
-
 import { AppComponent }  from './app.component';
 import { routing }        from './app.routing';
-
 import { AlertComponent } from './_components';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { HomeComponent } from './home';
 import { LoginComponent } from './login';
 import { RegisterComponent } from './register';
-import { HobbyListComponent } from './_components/hobby-list/hobby-list.component';
-import { AddHobbyComponent } from './_components/add-hobby/add-hobby.component';
-import { DeleteHobbyComponent } from './_components/delete-hobby/delete-hobby.component';
-import {HobbyDataComponent} from './_components/hobby-data-admin/hobby-data.component';
-import {UserDataComponent} from './_components/user-data-admin/user-data.component';
+import { ChangePasswordComponent } from './_components/change-password/change-password.component';
 
 
 @NgModule({
@@ -34,11 +25,7 @@ import {UserDataComponent} from './_components/user-data-admin/user-data.compone
         HomeComponent,
         LoginComponent,
         RegisterComponent,
-        HobbyListComponent,
-        AddHobbyComponent,
-        DeleteHobbyComponent,
-        HobbyDataComponent,
-        UserDataComponent
+        ChangePasswordComponent
     
     ],
     providers: [

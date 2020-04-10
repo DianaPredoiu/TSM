@@ -2,6 +2,8 @@
 import { HttpClient } from '@angular/common/http';
 
 import { User } from '@/_models';
+import { map } from 'rxjs/operators';
+import { userInfo } from 'os';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -20,10 +22,17 @@ export class UserService {
     }
 
     update(user: User) {
-        return this.http.put(`${config.apiUrl}/users/${user.id}`, user);
+        return this.http.put(`${config.apiUrl}/users/${user.idUser}`, user);
     }
 
     delete(id: number) {
         return this.http.delete(`${config.apiUrl}/users/${id}`);
     }
+
+    
+    verifyPassword(user: User){
+        
+        return this.http.post(`${config.apiUrl}/users/verifyPassword`,user);
+     }
+    
 }

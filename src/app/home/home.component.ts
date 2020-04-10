@@ -1,28 +1,23 @@
-﻿import { Component, OnInit, OnDestroy } from '@angular/core';
+﻿import { Component, OnDestroy} from '@angular/core';
 import { Subscription} from 'rxjs';
-import { User, Hobby } from '@/_models';
+import { User } from '@/_models';
 import {AuthenticationService} from '@/_services';
-
+import { Router } from '@angular/router';
 
 @Component({ templateUrl: 'home.component.html' })
 
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnDestroy {
     currentUser: User;
     currentUserSubscription: Subscription;
     users: User[] = [];
-    hobbies: Hobby[]=[];
-
 
     constructor(
         private authenticationService: AuthenticationService,
+        private router: Router
     ) {
         this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
             this.currentUser = user;
         });
-    }
-
-    ngOnInit() {
-       
     }
 
     ngOnDestroy() {
@@ -30,4 +25,5 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.currentUserSubscription.unsubscribe();
     }
 
+   
 }

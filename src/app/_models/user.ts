@@ -1,11 +1,11 @@
 ﻿export class User {
-
-    id: number;
+    
+    idUser: number;
     username: string;
     password: string;
-    firstName: string;
-    lastName: string;
-    token: string;
-    isAdmin:boolean;
+    email:string;
+    IdRole:number;
+    IdTeam:number;
     isActive:boolean;
+    token: string;
 }
