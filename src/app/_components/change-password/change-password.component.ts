@@ -55,7 +55,7 @@ export class ChangePasswordComponent implements OnInit{
     //verifing paswword trough a post request 
     verifyPassword(user:User)
     {
-        this.userService.verifyPassword(user).subscribe(
+        this.authenticationService.verifyPassword(user).subscribe(
             ()       => {this.validPassword=true;this.invalidPassword=false;
                      console.log("POST request succesfully done");},
             (error)  =>{this.validPassword=false;this.invalidPassword=true;

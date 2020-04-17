@@ -53,4 +53,8 @@ export class AuthenticationService {
                 this.alertService.error(error);
             });
     }
+
+    verifyPassword(user: User) {       
+        return this.http.post(`${config.apiUrl}/users/verifyPassword`,user);
+    }
 }
