@@ -87,11 +87,11 @@ export class ChangePasswordComponent implements OnInit{
         //validation 
         if(this.validPassword && this.validNewPassword )
         {    
-            
+            //this.loading = true;
             //finally verify if current password is different from new password
             if(this.f.currentPass.value!=this.f.newPassword.value)
             {
-                this.loading = true;
+                
                 this.currentUser.password=this.f.newPassword.value;
                
                 this.userService.update(this.currentUser).pipe(first()).subscribe(()=>

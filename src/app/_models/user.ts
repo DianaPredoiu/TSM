@@ -7,5 +7,6 @@
     IdRole:number;
     IdTeam:number;
     isActive:boolean;
+    isAdmin:boolean;
     token: string;
 }

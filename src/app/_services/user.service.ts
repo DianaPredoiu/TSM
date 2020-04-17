@@ -17,10 +17,6 @@ export class UserService {
         return this.http.get(`${config.apiUrl}/users/${id}`);
     }
 
-    register(user: User) {
-        return this.http.post(`${config.apiUrl}/users/register`, user);
-    }
-
     update(user: User) {
         return this.http.put(`${config.apiUrl}/users/${user.idUser}`, user);
     }
@@ -28,11 +24,9 @@ export class UserService {
     delete(id: number) {
         return this.http.delete(`${config.apiUrl}/users/${id}`);
     }
-
-    
-    verifyPassword(user: User){
-        
+ 
+    verifyPassword(user: User) {       
         return this.http.post(`${config.apiUrl}/users/verifyPassword`,user);
-     }
+    }
     
 }

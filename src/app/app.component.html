@@ -4,6 +4,7 @@
         <a class="nav-item nav-link" routerLink="/">Home</a>
         <a class="nav-item nav-link" (click)="logout()">Logout</a>
         <a class="nav-item nav-link"  routerLink="/changePassword">Change password</a>
+        <a *ngIf="currentUser.isAdmin" class="nav-item nav-link"  routerLink="/register">Register user</a>
     </div>
   </nav>
 

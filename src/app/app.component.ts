@@ -17,6 +17,7 @@ export class AppComponent implements OnInit{
         private authenticationService: AuthenticationService
     ) {
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+        //console.log(this.currentUser.isAdmin);
     }
 
     logout() {
