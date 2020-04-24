@@ -1,0 +1,25 @@
+﻿<!-- <select class="browser-default custom-select" id="home-dropdown">
+  <option value="1"><a routerLink="/addTimesheet">View timesheets</a></option>
+  <option value="2"><a routerLink="/addTimesheet">Add timesheet</a></option>
+</select> -->
+
+<!-- <div align="center">
+  <form [formGroup]="dropDownForm" class="center">
+  <select name="menu" onchange="gotoPage(this)">
+  <option value="#">Select an option</option>
+  <option value="/addTimesheet">Add Timesheet Activity</option>
+  <option value="/addTimesheet">View Timesheet Activities</option>
+  </select>
+<input type="button" onClick()="location=document.jump.menu.options[document.jump.menu.selectedIndex].value;" value="GO">
+  </form>
+</div> -->
+<form [formGroup]="dropdownForm" (ngSubmit)="onSubmit()">
+<div class="form-group">
+  <select class="form-control" formControlName="Options">
+      <option [value]="1">Add Timesheet Activity</option>
+  </select>
+</div>
+<div class="form-group">
+  <button class="btn btn-primary">Go</button>
+</div>
+</form>

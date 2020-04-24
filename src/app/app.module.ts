@@ -6,10 +6,12 @@ import { AppComponent }  from './app.component';
 import { routing }        from './app.routing';
 import { AlertComponent } from './_components';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
-import { HomeComponent } from './home';
-import { LoginComponent } from './login';
-import { RegisterComponent } from './register';
+import { HomeComponent } from './_components/home';
+import { LoginComponent } from './_components/login';
+import { RegisterComponent } from './_components/register';
 import { ChangePasswordComponent } from './_components/change-password/change-password.component';
+import { AddTimesheetComponent } from './_components/add-timesheet/add-timesheet.component';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -25,12 +27,14 @@ import { ChangePasswordComponent } from './_components/change-password/change-pa
         HomeComponent,
         LoginComponent,
         RegisterComponent,
-        ChangePasswordComponent
+        ChangePasswordComponent,
+        AddTimesheetComponent
     
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+        DatePipe
 
         // provider used to create fake backend
         //fakeBackendProvider

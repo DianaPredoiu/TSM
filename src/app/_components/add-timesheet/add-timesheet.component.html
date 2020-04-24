@@ -1,0 +1,52 @@
+<h2>Add timesheet activity</h2>
+<form [formGroup]="addTimesheetActivityForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="Date">Date</label>
+        <input type="date" formControlName="Date" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Date.errors }" />
+        <div *ngIf="submitted && f.Date.errors" class="invalid-feedback">
+            <div *ngIf="f.Date.errors.required">Date is required</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="StartTime">Start Time</label>
+        <input type="time" formControlName="StartTime" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.StartTime.errors }" />
+        <div *ngIf="submitted && f.StartTime.errors" class="invalid-feedback">
+            <div *ngIf="f.StartTime.errors.required">Start Time is required</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="EndTime">End Time</label>
+        <input type="time" formControlName="EndTime" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.EndTime.errors }" />
+        <div *ngIf="submitted && f.EndTime.errors" class="invalid-feedback">
+            <div *ngIf="f.EndTime.errors.required">End Time is required</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Break">Break</label>
+        <input type="time" formControlName="Break" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Break.errors }" />
+        <div *ngIf="submitted && f.Break.errors" class="invalid-feedback">
+            <div *ngIf="f.Break.errors.required">Break is required</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Projects">Projects</label>
+        <select class="form-control" formControlName="Projects">
+            <!-- <option value ="1">Proiect</option> -->
+            <option [value]="project.idProject" *ngFor="let project of projects" >{{project.projectName}}</option>
+        </select>    
+    </div>
+    <div class="form-group">
+        <label for="Location">Location</label>
+        <select class="form-control" formControlName="Projects">
+            <!-- <option value ="1">Proiect</option> -->
+            <option [value]="location.idLocation" *ngFor="let location of locations" >{{location.locationName}}</option>
+        </select>    
+    </div>
+    <div class="form-group">
+        <label for="Comments">Comments</label>
+        <input type="text" formControlName="Comments" class="form-control" />
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary">Add</button>
+    </div>
+</form>

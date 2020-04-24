@@ -1,8 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
-import { AlertService, UserService, TeamService,RoleService, AuthenticationService } from '@/_services';
+import { TeamService,RoleService, AuthenticationService } from '@/_services';
 import { User,Team,Role} from '@/_models';
 
 @Component({templateUrl: 'register.component.html'})
@@ -25,7 +24,7 @@ export class RegisterComponent implements OnInit {
 
     ngOnInit() {
 
-        //buildin form with validators
+        //building form with validators
         this.registerForm = this.formBuilder.group({
             Username: ['', Validators.required],
             Password: ['', Validators.required],
