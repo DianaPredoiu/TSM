@@ -1,0 +1,42 @@
+<h1 align="center">Hi {{currentUser.username}}!</h1><br/>
+<br/>
+<h3 align="center">Your timesheets are:</h3>
+
+<table align="center" class="table">
+    <thead>
+        <tr>
+            <th scope="col">Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let timesheet of timesheets">
+            <td>
+          {{timesheet.Date}}
+            <!-- <table *ngIf="show" class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Project</th>
+                        <th scope="col">Start Time</th>
+                        <th scope="col">End Time</th>
+                        <th scope="col">Break</th>
+                        <th scope="col">Location</th>            
+                        <th scope="col">Worked Hours</th>
+                        <th scope="col">Comments</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{timesheet.Project}}</td>
+                        <td>{{timesheet.StartTime}}</td>
+                        <td>{{timesheet.EndTime}}</td>
+                        <td>{{timesheet.Break}}</td>
+                        <td>{{timesheet.Location}}</td>
+                        <td>{{timesheet.WorkedHours}}</td>
+                        <td>{{timesheet.Comments}}</td>
+                    </tr>
+                </tbody> 
+            </table> -->
+        </td>
+        </tr>
+    </tbody> 
+  </table>

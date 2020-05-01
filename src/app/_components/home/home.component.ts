@@ -44,5 +44,9 @@ export class HomeComponent implements OnDestroy,OnInit {
     {
         if(this.f.Options.value=="1")
            {this.router.navigate(['/addTimesheet']);}
+        if(this.f.Options.value=="2")
+        {
+            this.router.navigate(['/viewAllTimesheets']);
+        }
     }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Timesheet } from '@/_models';
+import { Timesheet, TimesheetView } from '@/_models';
 import { first } from 'rxjs/operators';
 import {AlertService} from './alert.service';
 import {Router} from '@angular/router';
@@ -20,6 +20,11 @@ export class TimesheetService {
             error => {
                 this.alertService.error(error);
             });
+    }
+
+    getAllById(id:number)
+    {
+        return this.http.get<TimesheetView[]>(`${config.apiUrl}/timesheets/${id}`);
     }
     
 }

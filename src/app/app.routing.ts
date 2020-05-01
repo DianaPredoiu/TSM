@@ -5,6 +5,7 @@ import { RegisterComponent } from './_components/register';
 import { AuthGuard } from './_guards';
 import {ChangePasswordComponent} from './_components/change-password/change-password.component';
 import { AddTimesheetComponent } from './_components/add-timesheet/add-timesheet.component';
+import {ViewAllTimesheetsComponent} from './_components/view-all-timesheets/view-all-timesheets.component';
 
 
 const appRoutes: Routes = [
@@ -12,7 +13,8 @@ const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'changePassword', component: ChangePasswordComponent },
     { path: 'register', component: RegisterComponent },
-    { path: 'addTimesheet', component: AddTimesheetComponent },   
+    { path: 'addTimesheet', component: AddTimesheetComponent },
+    { path: 'viewAllTimesheets', component: ViewAllTimesheetsComponent }   ,
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }

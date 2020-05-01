@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthenticationService, ProjectService,LocationService,TimesheetService,TimesheetActivityService } from "@/_services";
+import { AuthenticationService, ProjectService,LocationService,TimesheetService,TimesheetActivityService,AlertService } from "@/_services";
 import { User, Timesheet, TimesheetActivity, Project,Location } from "@/_models";
 import { Subscription } from "rxjs";
 import { first } from "rxjs/operators";
@@ -11,12 +11,13 @@ import { DatePipe, Time } from '@angular/common';
 export class AddTimesheetComponent implements OnInit {
 
     addTimesheetActivityForm: FormGroup;
-    loading = false;
+    //loading = false;
     submitted = false;
     currentUser: User;
     currentUserSubscription: Subscription;
     timesheet:Timesheet=new Timesheet();
     timesheetActivity:TimesheetActivity=new TimesheetActivity();
+    project:Project=new Project();
     projects:Project[]=[];
     locations:Location[]=[];
     convertedDate:string;
@@ -29,7 +30,8 @@ export class AddTimesheetComponent implements OnInit {
         private locationService:LocationService,
         private timesheetService:TimesheetService,
         private timesheetActivityService:TimesheetActivityService,
-        public datepipe: DatePipe
+        private alertService:AlertService
+        //public datepipe: DatePipe
 
     )
     {this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
@@ -40,11 +42,11 @@ export class AddTimesheetComponent implements OnInit {
     ngOnInit()
     {
         this.addTimesheetActivityForm = this.formBuilder.group({
-            Date: ['', Validators.required],
+            Date: ['',Validators.required],
             StartTime: ['', Validators.required],
             EndTime: ['', Validators.required],
             Break: ['', Validators.required],
-            Projects:['', Validators.required],
+            Project:['', Validators.required],
             Location:['', Validators.required],
             Comments:['', Validators.required]
         });
@@ -66,7 +68,7 @@ export class AddTimesheetComponent implements OnInit {
     // convenience getter for easy access to form fields
     get f() { return this.addTimesheetActivityForm.controls; }
 
-    convertDate(time:Time)
+    convertDate(time:string)
     {
         return this.f.Date.value.concat("T").concat(time);
     }
@@ -75,27 +77,27 @@ export class AddTimesheetComponent implements OnInit {
     {
         this.submitted=true;
         
-        // // stop here if form is invalid
-        // if (this.addTimesheetActivityForm.invalid) {
-        //     return;
-        // }
+        
+        // stop here if form is invalid
+        if (this.addTimesheetActivityForm.invalid) {
+            console.log("invalid");
+            return;
+        }  
 
         this.timesheet.Date=this.f.Date.value;
-        this.timesheet.StartTime=this.convertDate(this.f.StartTime.value);  
+        this.timesheet.StartTime=this.convertDate(this.f.StartTime.value);
         this.timesheet.EndTime=this.convertDate(this.f.EndTime.value);
         this.timesheet.BreakTime=this.convertDate(this.f.Break.value);
         this.timesheet.IdUser=this.currentUser.idUser;
-        this.timesheet.IdLocation=2;
+        this.timesheet.IdLocation= this.f.Location.value;
        
-        console.log(this.timesheet);
-        console.log(this.locations);
         this.timesheetService.add(this.timesheet);
 
-        // this.timesheetActivity.IdProject=this.f.Project.value;
-        // this.timesheetActivity.Comments=this.f.Comments.value;
-        // this.timesheetActivity.IdTimesheet=this.timesheet.IdTimesheet;
+        this.timesheetActivity.IdProject=this.f.Project.value;
+        this.timesheetActivity.Comments=this.f.Comments.value;
+        this.timesheetActivity.IdTimesheet=this.timesheet.IdTimesheet;
 
-        // this.timesheetActivityService.add(this.timesheetActivity);
+        this.timesheetActivityService.add(this.timesheetActivity);
 
     }
 

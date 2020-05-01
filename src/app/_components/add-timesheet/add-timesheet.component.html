@@ -29,15 +29,15 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="Projects">Projects</label>
-        <select class="form-control" formControlName="Projects">
+        <label for="Project">Projects</label>
+        <select class="form-control" formControlName="Project">
             <!-- <option value ="1">Proiect</option> -->
             <option [value]="project.idProject" *ngFor="let project of projects" >{{project.projectName}}</option>
         </select>    
     </div>
     <div class="form-group">
         <label for="Location">Location</label>
-        <select class="form-control" formControlName="Projects">
+        <select class="form-control" formControlName="Location">
             <!-- <option value ="1">Proiect</option> -->
             <option [value]="location.idLocation" *ngFor="let location of locations" >{{location.locationName}}</option>
         </select>    

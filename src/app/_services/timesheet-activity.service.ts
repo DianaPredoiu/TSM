@@ -15,6 +15,7 @@ export class TimesheetActivityService {
         .subscribe(
             data => {
                 this.alertService.success('Added timesheetActivity successfully', true);
+                console.log("activity added");
             },
             error => {
                 this.alertService.error(error);
