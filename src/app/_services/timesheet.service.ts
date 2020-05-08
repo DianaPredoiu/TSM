@@ -22,9 +22,9 @@ export class TimesheetService {
             });
     }
 
-    getAllById(id:number)
+    getAllById(id:number,date:string)
     {
-        return this.http.get<TimesheetView[]>(`${config.apiUrl}/timesheets/${id}`);
+        return this.http.get<TimesheetView[]>(`${config.apiUrl}/timesheets/${id}/${date}`);
     }
     
 }

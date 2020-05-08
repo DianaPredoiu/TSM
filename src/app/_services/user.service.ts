@@ -21,6 +21,16 @@ export class UserService {
 
     delete(id: number) {
         return this.http.delete(`${config.apiUrl}/users/${id}`);
-    } 
+    }
+
+    getUsersByTeamId(id:number)
+    {
+        return this.http.get<User[]>(`${config.apiUrl}/users/getTeamMembers/${id}`);
+    }
+
+    getUsersByProjectId(id:number)
+    {
+        return this.http.get<User[]>(`${config.apiUrl}/users/getProjectMembers/${id}`);
+    }
     
 }

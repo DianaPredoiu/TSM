@@ -1,9 +1,9 @@
 export class TimesheetView
 {
-     Date:string;
-     StartTime :string;
-     EndTime:string;
-     BreakTime:string;
+     Date:Date;
+     StartTime :Date;
+     EndTime:Date;
+     BreakTime:Date;
      Location:string;
      Project:string;
      WorkedHours:number;

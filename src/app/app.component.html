@@ -1,51 +1,4 @@
-﻿<head>
-    <style>
-        .sidenav {
-  height: 100%; /* Full-height: remove this if you want "auto" height */
-  width: 170px; /* Set the width of the sidebar */
-  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-  z-index: 0; /* Stay on top */
-  top: 0; /* Stay at the top */
-  left: 0;
-  background-color: #111; /* Black */
-  overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 60px;
-}
-
-/* The navigation menu links */
-.sidenav a {
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 18px;
-  color: #818181;
-  display: block;
-}
-
-/* When you mouse over the navigation links, change their color */
-.sidenav a:hover {
-  color: #f1f1f1;
-}
-
-/* Style page content */
-.main {
-  margin-left: 160px; /* Same as the width of the sidebar */
-  padding: 0px 10px;
-}
-
-/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-}
-
-.navbar
-{
-   z-index: 1;
-}
-</style>
-</head>
-
-<!-- nav -->
+﻿<!-- nav -->
 <nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="currentUser">
     <div class="navbar-nav">
         <a class="nav-item nav-link" routerLink="/">Home</a>
@@ -55,9 +8,11 @@
     </div>
   </nav>
 
-  <div class="sidenav">
+  <div  *ngIf="currentUser" class="sidenav">
     <a href="/addTimesheet">Add Timesheet</a>
-    <a href="/viewTimesheet">View Timesheets</a>
+    <a href="/viewPersonalTimesheets">View Personal Timesheets</a>
+    <a href="/viewTeamMmemberTimesheets" *ngIf="currentUser.idRole==2">View Team Member Timesheets</a>
+    <a href="/viewProjectMemberTimesheets" *ngIf="currentUser.idRole==3">View Project Member Timesheets</a>
   </div>
 
 <!-- main app container -->

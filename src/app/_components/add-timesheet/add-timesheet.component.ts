@@ -5,6 +5,7 @@ import { User, Timesheet, TimesheetActivity, Project,Location } from "@/_models"
 import { Subscription } from "rxjs";
 import { first } from "rxjs/operators";
 import { DatePipe, Time } from '@angular/common';
+import { Converter } from "@/_helpers/converter";
 
 @Component({ templateUrl: 'add-timesheet.component.html' })
 
@@ -30,7 +31,7 @@ export class AddTimesheetComponent implements OnInit {
         private locationService:LocationService,
         private timesheetService:TimesheetService,
         private timesheetActivityService:TimesheetActivityService,
-        private alertService:AlertService
+        private converter:Converter
         //public datepipe: DatePipe
 
     )
@@ -68,10 +69,7 @@ export class AddTimesheetComponent implements OnInit {
     // convenience getter for easy access to form fields
     get f() { return this.addTimesheetActivityForm.controls; }
 
-    convertDate(time:string)
-    {
-        return this.f.Date.value.concat("T").concat(time);
-    }
+    
 
     onSubmit()
     {
@@ -85,9 +83,9 @@ export class AddTimesheetComponent implements OnInit {
         }  
 
         this.timesheet.Date=this.f.Date.value;
-        this.timesheet.StartTime=this.convertDate(this.f.StartTime.value);
-        this.timesheet.EndTime=this.convertDate(this.f.EndTime.value);
-        this.timesheet.BreakTime=this.convertDate(this.f.Break.value);
+        this.timesheet.StartTime=this.converter.convertDate(this.f.Date.value,this.f.StartTime.value);
+        this.timesheet.EndTime=this.converter.convertDate(this.f.Date.value,this.f.EndTime.value);
+        this.timesheet.BreakTime=this.converter.convertDate(this.f.Date.value,this.f.Break.value);
         this.timesheet.IdUser=this.currentUser.idUser;
         this.timesheet.IdLocation= this.f.Location.value;
        

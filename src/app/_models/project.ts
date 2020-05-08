@@ -2,7 +2,7 @@ export class Project{
     
     IdProject:number;
     ProjectName:string;
-    StartDate:Date;
-    EndDate:Date;
+    StartDate:string;
+    EndDate:string;
     IsActive:boolean;
 }

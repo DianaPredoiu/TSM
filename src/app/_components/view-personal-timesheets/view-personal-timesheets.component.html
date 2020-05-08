@@ -1,0 +1,45 @@
+<!-- <h1 align="center">{{currentUser.username}}!</h1><br/>
+<br/> -->
+<h3 align="center">Choose your date:</h3>
+<form [formGroup]="chooseDate" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="Date">Date</label>
+        <input type="date" formControlName="Date" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Date.errors }" />
+        <div *ngIf="submitted && f.Date.errors" class="invalid-feedback">
+            <div *ngIf="f.Date.errors.required">Date is required</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary">Submit</button>
+    </div>
+
+<h3 align="center">Timesheet activity:</h3>
+
+<table align="center" class="table">
+    <thead>
+        <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Project</th>
+            <th scope="col">Start Time</th>
+            <th scope="col">End Time</th>
+            <th scope="col">Break</th>
+            <th scope="col">Location</th>            
+            <th scope="col">Worked Hours</th>
+            <th scope="col">Comments</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let timesheet of timesheets">
+            <td>{{timesheet.date}}</td>
+            <td>{{timesheet.project}}</td>
+            <td>{{timesheet.startTime}}</td>
+            <td>{{timesheet.endTime}}</td>
+            <td>{{timesheet.breakTime}}</td>
+            <td>{{timesheet.location}}</td>
+            <td>{{timesheet.workedHours}}</td>
+            <td>{{timesheet.comments}}</td>
+        </tr>
+    </tbody> 
+  </table>
+           
+       

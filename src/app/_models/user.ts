@@ -4,8 +4,8 @@
     username: string;
     password: string;
     email:string;
-    IdRole:number;
-    IdTeam:number;
+    idRole:number;
+    idTeam:number;
     isActive:boolean;
     isAdmin:boolean;
     token: string;

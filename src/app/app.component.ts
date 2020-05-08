@@ -4,7 +4,8 @@ import { AuthenticationService } from './_services';
 import { User } from './_models';
 import { Subject } from 'rxjs';
 
-@Component({ selector: 'app', templateUrl: 'app.component.html' })
+@Component({ selector: 'app', templateUrl: 'app.component.html',styleUrls: ['style.css'] })
+
 
 export class AppComponent implements OnInit{
 

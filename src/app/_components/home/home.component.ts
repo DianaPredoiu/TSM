@@ -43,10 +43,20 @@ export class HomeComponent implements OnDestroy,OnInit {
     onSubmit()
     {
         if(this.f.Options.value=="1")
-           {this.router.navigate(['/addTimesheet']);}
+        {
+            this.router.navigate(['/addTimesheet']);
+        }
         if(this.f.Options.value=="2")
         {
-            this.router.navigate(['/viewAllTimesheets']);
+            this.router.navigate(['/viewPersonalTimesheets']);
+        }
+        if(this.f.Options.value=="3")
+        {
+            this.router.navigate(['/viewTeamMmemberTimesheets']);
+        }
+        if(this.f.Options.value=="4")
+        {
+            this.router.navigate(['/viewProjectMemberTimesheets']);
         }
     }
 }

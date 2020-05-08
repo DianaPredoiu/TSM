@@ -34,7 +34,12 @@ module.exports = {
             config: JSON.stringify({
                 apiUrl: 'http://localhost:4000'
             })
-        })
+        }),
+        new webpack.ContextReplacementPlugin(
+            /angular(\\|\/)core/,
+            path.resolve(__dirname, 'src'), // path to your src
+            {}
+          )
     ],
     optimization: {
         splitChunks: {

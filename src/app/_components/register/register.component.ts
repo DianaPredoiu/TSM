@@ -70,8 +70,8 @@ export class RegisterComponent implements OnInit {
             this.user.username=this.f.Username.value;
             this.user.password=this.f.Password.value;
             this.user.email=this.f.Email.value;
-            this.user.IdRole=this.f.Role.value;
-            this.user.IdTeam=this.f.Team.value;
+            this.user.idRole=this.f.Role.value;
+            this.user.idTeam=this.f.Team.value;
     
             //registration
             this.authenticationService.register(this.user);
