@@ -9,6 +9,13 @@
             <div *ngIf="f.Date.errors.required">Date is required</div>
         </div>
     </div>
+    <div *ngIf="!id" class="form-group">
+        <label for="Project">Projects</label>
+        <select class="form-control" formControlName="Project">
+            <!-- <option value ="1">Proiect</option> -->
+            <option [value]="project.idProject" *ngFor="let project of projects" >{{project.projectName}}</option>
+        </select>    
+    </div>
     <div class="form-group">
         <button class="btn btn-primary">Submit</button>
     </div>

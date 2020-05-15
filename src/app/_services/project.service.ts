@@ -12,9 +12,11 @@ export class ProjectService {
 
     getByManagerId(id:number)
     {
-        console.log(this.http.get<Project[]>(`${config.apiUrl}/ProjectManager/getProjectsByProjectManagerId/${id}`));
+        //console.log(this.http.get<Project[]>(`${config.apiUrl}/ProjectManager/getProjectsByProjectManagerId/${id}`));
         return this.http.get<Project[]>(`${config.apiUrl}/ProjectManager/getProjectsByProjectManagerId/${id}`);
     }
 
-    
+    getByUserId(id:number) {
+        return this.http.get<Project[]>(`${config.apiUrl}/projects/getByUserId/${id}`);
+    }
 }

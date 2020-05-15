@@ -8,5 +8,5 @@ export class TimesheetActivity
     IdTimesheet:number;
     IdProject:number;
     Comments:string;
-    WorkedHours:Time;
+    WorkedHours:string;
 }

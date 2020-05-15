@@ -20,6 +20,7 @@ export class ViewPersonalTimesheetsComponent implements OnInit {
     sub:Subscription;
     id:number;
     date:any;
+    projects:Project[]=[];
     //tm : Timesheet;
 
     constructor(
@@ -47,15 +48,18 @@ export class ViewPersonalTimesheetsComponent implements OnInit {
         this.sub = this.route.params.subscribe(params => {
             this.id = +params['id']; });
 
-        this.chooseDate = this.formBuilder.group({
-            Date: ['',Validators.required]        
-        });
+        this.getProjectsById(this.currentUser.idUser);
 
-       
-       
-       
-       
-       
+        this.chooseDate = this.formBuilder.group({
+            Date: ['',Validators.required],
+            Project: ['',Validators.required]        
+        });
+    }
+
+    getProjectsById(id:number)
+    {
+        this.projectService.getByUserId(id).pipe(first()).subscribe(projects=>{this.projects=projects;console.log("get req done");});
+
     }
 
     // convenience getter for easy access to form fields
@@ -73,16 +77,33 @@ export class ViewPersonalTimesheetsComponent implements OnInit {
             
     }
 
+    getByIdProject(userId:number,date:string,idProj:number)
+    {
+        this.timesheetService.getAllByIdProject(userId,date,idProj).pipe(first()).subscribe(timesheets=>{
+            this.timesheets=timesheets;
+             console.log("GET request succesfully done");console.log(this.timesheets);
+            //  this.tm.IdLocation = timesheets[0].IdLocation;
+            });
+    }
+
     onSubmit()
     {
         this.date=this.f.Date.value;
-         if(this.id)
+        if(this.id)
         {
             this.getAllTimesheetActivities(this.id,this.date);
         }
         else
         {
-            this.getAllTimesheetActivities(this.currentUser.idUser,this.date);
+            if(this.f.Project.value)
+            {
+                this.getByIdProject(this.currentUser.idUser,this.date,this.f.Project.value);
+            }
+            else
+            {
+                this.getAllTimesheetActivities(this.currentUser.idUser,this.date);
+            }
+           
         }
       
 

@@ -6,6 +6,7 @@ import { Subscription } from "rxjs";
 import { first } from "rxjs/operators";
 import { DatePipe, Time } from '@angular/common';
 import { Converter } from "@/_helpers/converter";
+import { AnyARecord } from "dns";
 
 @Component({ templateUrl: 'add-timesheet.component.html' })
 
@@ -23,6 +24,9 @@ export class AddTimesheetComponent implements OnInit {
     locations:Location[]=[];
     convertedDate:string;
     convertedTime:string;
+    variable:Timesheet=new Timesheet();
+   // ts = new timespan.TimeSpan();
+    
 
     constructor(
         private formBuilder: FormBuilder,
@@ -85,18 +89,44 @@ export class AddTimesheetComponent implements OnInit {
         this.timesheet.Date=this.f.Date.value;
         this.timesheet.StartTime=this.converter.convertDate(this.f.Date.value,this.f.StartTime.value);
         this.timesheet.EndTime=this.converter.convertDate(this.f.Date.value,this.f.EndTime.value);
-        this.timesheet.BreakTime=this.converter.convertDate(this.f.Date.value,this.f.Break.value);
+        this.timesheet.BreakTime=this.f.Break.value;
         this.timesheet.IdUser=this.currentUser.idUser;
         this.timesheet.IdLocation= this.f.Location.value;
+
+        //console.log(this.timesheet);
+        this.timesheetService.add(this.timesheet).pipe(first())
+        .subscribe(
+            data => {
+                //this.alertService.success('Added timesheet successfully', true);
+                //data=timesheet.IdTimesheet;
+                this.timesheetActivity.IdTimesheet=data as number;
+               
+                this.timesheetActivity.IdProject=this.f.Project.value;
+                this.timesheetActivity.Comments=this.f.Comments.value;
+                this.timesheetActivity.WorkedHours=this.converter.convertTimeSpan(this.f.StartTime.value,this.f.EndTime.value,this.f.Break.value);
+                //console.log( this.timesheetActivity);
+               
+        
+                console.log("success");
+            },
+            error => {
+                //this.alertService.error(error);
+            });
+
+            console.log(this.timesheetActivity);
+            this.timesheetActivityService.add(this.timesheetActivity).pipe(first())
+            .subscribe(
+                dat=> {
+                    //this.alertService.success('Added timesheetActivity successfully', true);
+                    console.log(dat);
+                    console.log("activity added");
+                },
+                error => {
+                    //this.alertService.error(error);
+                });
        
-        this.timesheetService.add(this.timesheet);
-
-        this.timesheetActivity.IdProject=this.f.Project.value;
-        this.timesheetActivity.Comments=this.f.Comments.value;
-        this.timesheetActivity.IdTimesheet=this.timesheet.IdTimesheet;
-
-        this.timesheetActivityService.add(this.timesheetActivity);
-
+        
+       
     }
 
 }

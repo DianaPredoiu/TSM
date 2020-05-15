@@ -11,20 +11,17 @@ export class TimesheetService {
     constructor(private http: HttpClient,private alertService:AlertService,private router:Router) { }
 
     add(timesheet: Timesheet) {
-        return this.http.post(`${config.apiUrl}/timesheets/create`, timesheet).pipe(first())
-        .subscribe(
-            data => {
-                this.alertService.success('Added timesheet successfully', true);
-                console.log("success");
-            },
-            error => {
-                this.alertService.error(error);
-            });
+        return this.http.post(`${config.apiUrl}/timesheets/create`, timesheet);        
     }
 
     getAllById(id:number,date:string)
     {
         return this.http.get<TimesheetView[]>(`${config.apiUrl}/timesheets/${id}/${date}`);
+    }
+
+    getAllByIdProject(id:number,date:string,idProj:number)
+    {
+        return this.http.get<TimesheetView[]>(`${config.apiUrl}/timesheets/${id}/${date}/${idProj}`);
     }
     
 }

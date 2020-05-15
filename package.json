@@ -27,6 +27,7 @@
         "moment": "^2.24.0",
         "ng-sidebar": "^9.2.1",
         "rxjs": "^6.3.3",
+        "timespan": "^2.3.0",
         "zone.js": "^0.8.26"
     },
     "devDependencies": {
