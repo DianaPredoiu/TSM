@@ -10,14 +10,14 @@
 
   <div  *ngIf="currentUser" class="sidenav">
     <a href="/addTimesheet">Add Timesheet</a>
-    <a href="/viewPersonalTimesheets">View Personal Timesheets</a>
+    <a href="/viewPersonalTimesheets/0">View Personal Timesheets</a>
     <a href="/viewTeamMmemberTimesheets" *ngIf="currentUser.idRole==2">View Team Member Timesheets</a>
     <a href="/viewProjectMemberTimesheets" *ngIf="currentUser.idRole==3">View Project Member Timesheets</a>
   </div>
 
 <!-- main app container -->
 <div class="jumbotron">
-    <div class="container">
+    <div class="container-lg">
         <div class="row">
             <div class="col-sm-6 offset-sm-3">
                 <alert></alert>

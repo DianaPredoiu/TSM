@@ -22,8 +22,9 @@ export class ViewTeamMemberTimesheetsComponent implements OnInit {
 
     ngOnInit()
     {
+        //gets all team members
        this.getAllTeamMembers(this.currentUser.idTeam);
-       console.log(this.currentUser.idTeam);
+ 
     }
 
     getAllTeamMembers(id:number)

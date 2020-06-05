@@ -4,6 +4,7 @@ import { first } from 'rxjs/operators';
 import {AlertService} from './alert.service';
 import {Router} from '@angular/router';
 import { Injectable } from '@angular/core';
+import { TimesheetActivityView } from '@/_models/timesheet-activity-view';
 
 @Injectable({ providedIn: 'root' })
 export class TimesheetActivityService {

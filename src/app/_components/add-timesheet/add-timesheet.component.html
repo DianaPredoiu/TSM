@@ -1,52 +1,145 @@
-<h2>Add timesheet activity</h2>
-<form [formGroup]="addTimesheetActivityForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-        <label for="Date">Date</label>
-        <input type="date" formControlName="Date" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Date.errors }" />
-        <div *ngIf="submitted && f.Date.errors" class="invalid-feedback">
-            <div *ngIf="f.Date.errors.required">Date is required</div>
+<h2>Add timesheet </h2>
+
+<!--for adding timesheet-->
+<div>
+    <form [formGroup]="addTimesheetForm" >
+     <!--form row -->
+        <div class="form-row">
+
+           <!-- form column -->
+          <div class="form-group col-md-6">
+
+            <label for="Date">Date</label>
+
+            <input type="date" formControlName="Date" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Date.errors }" />
+            <!-- validation -->
+            <div *ngIf="submitted && f.Date.errors" class="invalid-feedback">
+                <div *ngIf="f.Date.errors.required">Date is required</div>
+            </div>
+
+          </div>
+
+          <!-- form column -->
+          <div class="form-group col-md-6">
+
+            <!-- select option -->
+            <label for="Location">Location</label>
+            <select class="form-control" formControlName="Location" [ngClass]="{ 'is-invalid': submitted && f.Location.errors }">
+                <option [value]="location.idLocation" *ngFor="let location of locations" >{{location.locationName}}</option>
+            </select>
+            <!-- validation -->
+            <div *ngIf="submitted && f.Location.errors" class="invalid-feedback">
+                <div *ngIf="f.Location.errors.required">Location is required</div>
+            </div>
+
+          </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label for="StartTime">Start Time</label>
-        <input type="time" formControlName="StartTime" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.StartTime.errors }" />
-        <div *ngIf="submitted && f.StartTime.errors" class="invalid-feedback">
-            <div *ngIf="f.StartTime.errors.required">Start Time is required</div>
+
+        <!--form row -->
+        <div class="form-row">
+
+            <!-- form column -->
+            <div class="form-group col-md-6">
+               <label for="StartTime">Start Time</label>
+               <input type="time" formControlName="StartTime" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.StartTime.errors }" />
+               <!-- validation -->
+               <div *ngIf="submitted && f.StartTime.errors" class="invalid-feedback">
+                   <div *ngIf="f.StartTime.errors.required">Start Time is required</div>
+               </div>
+            
+            </div>
+ 
+           <!-- form column -->
+           <div class="form-group col-md-6"> 
+              <label for="EndTime">End Time</label>
+              <input type="time" formControlName="EndTime" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.EndTime.errors }" />
+              <!-- validation -->
+              <div *ngIf="submitted && f.EndTime.errors" class="invalid-feedback">
+                  <div *ngIf="f.EndTime.errors.required">End Time is required</div>
+              </div>
+ 
+           </div>
+
+            <!-- form column -->
+            <div class="form-group col-md-6">
+ 
+                <label for="Break">Break</label>
+                <input type="time" formControlName="Break" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Break.errors }" />
+                 <!-- validation -->
+                <div *ngIf="submitted && f.Break.errors" class="invalid-feedback">
+                    <div *ngIf="f.Break.errors.required">Break is required</div>
+                </div>
+     
+            </div>
+            
+            <div class="form-group col-md-6">
+ 
+                <label for="TotalWorkedHours">Total worked hours</label>
+                <input disabled="true" type="text" formControlName="TotalWorkedHours" class="form-control" />
+     
+            </div>
+        </div>             
+      </form>
+
+        <!-- button -->
+        <div >
+            <button class="btn btn-primary first-btn" (click)="btnAddActivity()">Add activity</button> 
+            <button class="btn btn-primary"(click)="btnSaveRecords()">Save records</button>
         </div>
-    </div>
-    <div class="form-group">
-        <label for="EndTime">End Time</label>
-        <input type="time" formControlName="EndTime" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.EndTime.errors }" />
-        <div *ngIf="submitted && f.EndTime.errors" class="invalid-feedback">
-            <div *ngIf="f.EndTime.errors.required">End Time is required</div>
+      
+</div>
+<br><br>
+<!--for adding timesheet activities-->
+<div *ngFor="let activity of timesheetActivities" (ngSubmit)="btnSubmit()">
+
+    <form [formGroup]="addTimesheetActivityForm">
+        <!--form row -->
+           <div class="form-row">
+   
+              <!-- form column -->
+             <div class="form-group col-md-6">
+   
+               <label for="WorkedHours">Worked Hours</label>
+   
+               <input type="text" formControlName="WorkedHours" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Date.errors }" />
+               <!-- validation -->
+               <div *ngIf="submitted && f.Date.errors" class="invalid-feedback">
+                   <div *ngIf="f.Date.errors.required">Worked hours are required</div>
+               </div>
+   
+             </div>
+   
+             <!-- form column -->
+             <div class="form-group col-md-6">
+   
+               <!-- select option -->
+               <label for="Project">Project</label>
+               <select class="form-control" formControlName="Project" [ngClass]="{ 'is-invalid': submitted && f.Location.errors }">
+                   <option [value]="project.idProject" *ngFor="let project of projects" >{{project.projectName}}</option>
+               </select>
+               <!-- validation -->
+               <div *ngIf="submitted && f.Project.errors" class="invalid-feedback">
+                   <div *ngIf="f.Project.errors.required">Project is required</div>
+               </div>
+   
+             </div>
+
+           </div>
+
+           <div class="form-row comments">
+              
+                <label class="label-com" for="Comments">Comments</label>
+    
+                <input type="text" formControlName="Comments" class="form-control input-com" />
+                            
+           </div>
+           <div class="form-group">
+             
+            <button class="btn btn-primary">Submit</button>
         </div>
-    </div>
-    <div class="form-group">
-        <label for="Break">Break</label>
-        <input type="time" formControlName="Break" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Break.errors }" />
-        <div *ngIf="submitted && f.Break.errors" class="invalid-feedback">
-            <div *ngIf="f.Break.errors.required">Break is required</div>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="Project">Projects</label>
-        <select class="form-control" formControlName="Project">
-            <!-- <option value ="1">Proiect</option> -->
-            <option [value]="project.idProject" *ngFor="let project of projects" >{{project.projectName}}</option>
-        </select>    
-    </div>
-    <div class="form-group">
-        <label for="Location">Location</label>
-        <select class="form-control" formControlName="Location">
-            <!-- <option value ="1">Proiect</option> -->
-            <option [value]="location.idLocation" *ngFor="let location of locations" >{{location.locationName}}</option>
-        </select>    
-    </div>
-    <div class="form-group">
-        <label for="Comments">Comments</label>
-        <input type="text" formControlName="Comments" class="form-control" />
-    </div>
-    <div class="form-group">
-        <button class="btn btn-primary">Add</button>
-    </div>
-</form>
+        <br><br>
+   </form>
+</div>
+
+
+

@@ -1,15 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService, ProjectService,LocationService,TimesheetService,TimesheetActivityService,AlertService } from "@/_services";
-import { User, Timesheet, TimesheetActivity, Project,Location } from "@/_models";
+import { User, Project } from "@/_models";
 import { Subscription } from "rxjs";
 import { first } from "rxjs/operators";
-import { DatePipe, Time } from '@angular/common';
 import { TimesheetView } from "@/_models/timesheet-view";
-import { tmpdir } from "os";
 import { ActivatedRoute } from "@angular/router";
 
-@Component({ templateUrl: 'view-personal-timesheets.component.html'})
+@Component({ templateUrl: 'view-personal-timesheets.component.html',styleUrls: ['table-style.css']})
 
 export class ViewPersonalTimesheetsComponent implements OnInit {
 
@@ -18,22 +16,17 @@ export class ViewPersonalTimesheetsComponent implements OnInit {
     timesheets:TimesheetView[]=[];
     chooseDate:FormGroup;
     sub:Subscription;
-    id:number;
+    id:number;//id for the user you want to get activities for
     date:any;
     projects:Project[]=[];
-    //tm : Timesheet;
 
     constructor(
        
         private authenticationService:AuthenticationService,
         private projectService:ProjectService,
-        private locationService:LocationService,
         private timesheetService:TimesheetService,
-        private timesheetActivityService:TimesheetActivityService,
-        private alertService:AlertService,
         private formBuilder: FormBuilder,
         private route: ActivatedRoute
-        //public datepipe: DatePipe
 
     )
     {this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
@@ -45,11 +38,14 @@ export class ViewPersonalTimesheetsComponent implements OnInit {
 
     ngOnInit()
     {
+        //gets the id form the route
         this.sub = this.route.params.subscribe(params => {
             this.id = +params['id']; });
 
+        //gets projects for the current user
         this.getProjectsById(this.currentUser.idUser);
 
+        //builds form with validators
         this.chooseDate = this.formBuilder.group({
             Date: ['',Validators.required],
             Project: ['',Validators.required]        
@@ -65,36 +61,43 @@ export class ViewPersonalTimesheetsComponent implements OnInit {
     // convenience getter for easy access to form fields
     get f() { return this.chooseDate.controls; }
 
+
+    //gets activities by user id and date
     getAllTimesheetActivities(userId:number,date:string)
     {
         
             this.timesheetService.getAllById(userId,date).pipe(first()).subscribe(timesheets=>{
                 this.timesheets=timesheets;
-                 console.log("GET request succesfully done");console.log(this.timesheets);
-                //  this.tm.IdLocation = timesheets[0].IdLocation;
+                 console.log("GET request succesfully done");
+               
                 });
         
             
     }
 
+    //gets activities by user id ,date and project
     getByIdProject(userId:number,date:string,idProj:number)
     {
         this.timesheetService.getAllByIdProject(userId,date,idProj).pipe(first()).subscribe(timesheets=>{
             this.timesheets=timesheets;
-             console.log("GET request succesfully done");console.log(this.timesheets);
-            //  this.tm.IdLocation = timesheets[0].IdLocation;
+            console.log("GET request succesfully done");
+        
             });
     }
 
     onSubmit()
     {
+        //gets date from form
         this.date=this.f.Date.value;
+
+        //if we want to see a specified user's activities by date
         if(this.id)
         {
             this.getAllTimesheetActivities(this.id,this.date);
         }
         else
         {
+            //if there is a projects selected
             if(this.f.Project.value)
             {
                 this.getByIdProject(this.currentUser.idUser,this.date,this.f.Project.value);

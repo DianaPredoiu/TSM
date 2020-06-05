@@ -3,6 +3,7 @@
 <h3 align="center">Choose user:</h3>
 <ul>
     <li *ngFor="let user of users">
+      <!-- navigates to personal timesheet of the selected user -->
       <a [routerLink]="['/viewPersonalTimesheets', user.idUser]">{{ user.username }}</a>
     </li>
   </ul>

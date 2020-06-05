@@ -42,13 +42,14 @@ export class HomeComponent implements OnDestroy,OnInit {
 
     onSubmit()
     {
+        //navigation
         if(this.f.Options.value=="1")
         {
             this.router.navigate(['/addTimesheet']);
         }
         if(this.f.Options.value=="2")
         {
-            this.router.navigate(['/viewPersonalTimesheets']);
+            this.router.navigate(['/viewPersonalTimesheets/0']);
         }
         if(this.f.Options.value=="3")
         {

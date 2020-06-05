@@ -40,3 +40,19 @@
   {
      z-index: 1;
   }
+  .container
+  {
+    width:100%;
+  }
+
+  .jumbotron
+  {
+    width:100%;
+  }
+  .col-sm-6 offset-sm-3
+  {
+    width:1000px;
+    margin-left:0px;
+    max-width: 100%;
+  }
+ 

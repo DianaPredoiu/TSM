@@ -31,7 +31,6 @@ export class ViewProjectMemberTimesheetsComponent implements OnInit {
       
        this.getAllProjectsById(this.currentUser.idUser);
       
-       console.log(this.currentUser.idUser);
     }
 
     getAllProjectMembers(id:number)
@@ -48,6 +47,8 @@ export class ViewProjectMemberTimesheetsComponent implements OnInit {
 
     onSubmit()
     {
+        this.submitted=true;
+
         this.selectedProject=this.f.Project.value;
 
         this.getAllProjectMembers(this.selectedProject);
