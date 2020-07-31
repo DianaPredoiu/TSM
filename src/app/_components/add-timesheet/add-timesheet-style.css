@@ -1,20 +1,10 @@
-.btn
-{
-    margin-right:243px;
-}
-
-.comments
-{
-    width:450px;
-    height:220px;
-}
-
 .input-com
 {
-    height:65%;
+    width:600px;
+    margin:0px;
 }
 
-.label-com
-{
-    height:30px;
+.timesheet{
+    width:100%;
+    max-height:300px;
 }

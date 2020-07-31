@@ -1,28 +1,57 @@
-﻿<!-- nav -->
-<nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="currentUser">
-    <div class="navbar-nav">
-        <a class="nav-item nav-link" routerLink="/">Home</a>
-        <a class="nav-item nav-link" (click)="logout()">Logout</a>
-        <a class="nav-item nav-link"  routerLink="/changePassword">Change password</a>           
-        <a *ngIf="currentUser.isAdmin" class="nav-item nav-link"  routerLink="/register">Register user</a>
-    </div>
-  </nav>
+﻿
 
-  <div  *ngIf="currentUser" class="sidenav">
-    <a href="/addTimesheet">Add Timesheet</a>
-    <a href="/viewPersonalTimesheets/0">View Personal Timesheets</a>
-    <a href="/viewTeamMmemberTimesheets" *ngIf="currentUser.idRole==2">View Team Member Timesheets</a>
-    <a href="/viewProjectMemberTimesheets" *ngIf="currentUser.idRole==3">View Project Member Timesheets</a>
-  </div>
-
+  
 <!-- main app container -->
-<div class="jumbotron">
+<!-- <div class="jumbotron">
     <div class="container-lg">
         <div class="row">
-            <div class="col-sm-6 offset-sm-3">
+            <div class="col-md-auto offset-md-2">
                 <alert></alert>
                 <router-outlet></router-outlet>
             </div>
         </div>
     </div>
-</div>
+</div> -->
+<div class="main"><!--main container-->
+
+    <div class="row first-row"><!--first row-->
+
+       <div class="col-lg"><!--column-->
+
+          <!--upper nav -->
+          <nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="currentUser">
+              <div class="navbar-nav">
+              <a class="nav-item nav-link" routerLink="/">Home</a>
+              <a class="nav-item nav-link" (click)="logout()">Logout</a>
+              <a class="nav-item nav-link"  routerLink="/changePassword">Change password</a>           
+              <a *ngIf="currentUser.isAdmin" class="nav-item nav-link"  routerLink="/register">Register user</a>
+            </div>
+          </nav>
+       
+       </div><!--end of column-->
+        
+    </div><!--end of first row-->
+
+    <div class="row second-row"><!--second row-->
+
+        <div class="col-2"><!--first column-->
+
+            <div  *ngIf="currentUser" class="sidenav"><!--sidenav-->
+                <a href="/addTimesheet">Add Timesheet</a>
+                <a href="/viewPersonalTimesheets/0">View Personal Timesheets</a>
+                <a href="/viewTeamMmemberTimesheets" *ngIf="currentUser.idRole==2">View Team Member Timesheets</a>
+                <a href="/viewProjectMemberTimesheets" *ngIf="currentUser.idRole==3">View Project Member Timesheets</a>
+              </div>
+            
+        </div><!--end of first column-->
+
+        <div class="col-10"><!--second column-->
+            <div class="container">
+                <alert></alert>
+                <router-outlet></router-outlet>
+            </div>
+        </div><!--end of second column-->
+
+    </div><!--end of second row-->
+
+</div><!-- end of main container-->
