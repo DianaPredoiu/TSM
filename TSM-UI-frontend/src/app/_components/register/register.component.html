@@ -1,0 +1,52 @@
+﻿<h2>Register</h2>
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="Username">Username</label>
+        <input type="text" formControlName="Username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Username.errors }" />
+        <div *ngIf="submitted && f.Username.errors" class="invalid-feedback">
+            <div *ngIf="f.Username.errors.required">Username is required</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Password">Password</label>
+        <input type="password" formControlName="Password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Password.errors }" />
+        <div *ngIf="submitted && f.Password.errors" class="invalid-feedback">
+            <div *ngIf="f.Password.errors.required">Password is required</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="ConfirmPassword">Confirm password</label>
+        <input type="password" formControlName="ConfirmPassword" class="form-control" [ngClass]="{ 'is-invalid': invalidPassword  }" />
+        <div *ngIf="invalidPassword" class="invalid-feedback">
+            <div *ngIf="invalidPassword">The passwords don't match. Please try again.</div>
+        </div>         
+    </div>
+    <div class="form-group">
+        <label for="Email">Email</label>
+        <input type="text" formControlName="Email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Email.errors }" />
+        <div *ngIf="submitted && f.Email.errors" class="invalid-feedback">
+            <div *ngIf="f.Email.errors.required">Email is required</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Role">Role</label>
+        <select class="form-control" formControlName="Role" [ngClass]="{ 'is-invalid': submitted && f.Role.errors }">
+            <option [value]="role.idRole" *ngFor="let role of roles" >{{role.roleName}}</option>
+          </select>
+        <div *ngIf="submitted && f.Role.errors" class="invalid-feedback">
+            <div *ngIf="f.Role.errors.required">Role is required</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Team">Team</label>
+        <select class="form-control" formControlName="Team" [ngClass]="{ 'is-invalid': submitted && f.Team.errors }">
+            <option [value]="team.idTeam" *ngFor="let team of teams" >{{team.teamName}}</option>
+        </select>
+        <div *ngIf="submitted && f.Team.errors" class="invalid-feedback">
+            <div *ngIf="f.Team.errors.required">Team is required</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary">Register</button>
+    </div>
+</form>

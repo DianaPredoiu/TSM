@@ -1,0 +1,28 @@
+<h1 align="center">Hi {{currentUser.username}}!</h1><br/>
+<br/>
+
+<h3 align="center">Choose project:</h3>
+
+<form [formGroup]="chooseProject" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="Project">Projects</label>
+        <select class="form-control" formControlName="Project" [ngClass]="{ 'is-invalid': submitted && f.Project.errors }">
+            <option [value]="project.idProject" *ngFor="let project of projects" >{{project.projectName}}</option>
+        </select>   
+        <div *ngIf="submitted && f.Project.errors" class="invalid-feedback">
+            <div *ngIf="f.Project.errors.required">Project is required</div>
+        </div>  
+    </div>
+   
+    <div class="form-group">
+        <button class="btn btn-primary">Submit</button>
+    </div>
+</form>
+
+<h3 align="center" *ngIf="selectedProject">Choose user:</h3>
+<ul>
+    <li *ngFor="let user of users">
+        <!-- navigates to personal timesheets of the selected user -->
+      <a [routerLink]="['/viewPersonalTimesheets', user.idUser]">{{ user.username }}</a>
+    </li>
+  </ul>

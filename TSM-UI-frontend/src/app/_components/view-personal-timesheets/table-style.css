@@ -1,0 +1,18 @@
+.table
+{
+    width:1100px;
+  
+}
+
+.table thead th
+{
+    width:300px;
+    padding:0rem;
+
+}
+
+.table tbody td{
+    width:300px;
+    padding:0rem;
+}
+

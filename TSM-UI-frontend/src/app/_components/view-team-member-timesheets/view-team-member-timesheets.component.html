@@ -1,0 +1,47 @@
+<h3 align="center">Choose your date:</h3>
+<form style="margin-left: 20px;" [formGroup]="chooseProject" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="Date">Date</label>
+        <input type="date" formControlName="Date" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label for="Project">Projects</label>
+        <select class="form-control" formControlName="Project">
+            <option [value]="project.idProject" *ngFor="let project of projects" >{{project.projectName}}</option>
+        </select>
+    </div>
+    <div class="form-group">
+      <label for="Users">Users</label>
+      <select class="form-control" formControlName="Users">
+          <option [value]="user.IdUser" *ngFor="let user of users" >{{user.username}}</option>
+      </select>
+    </div>
+    
+    <div class="form-group">
+        <button class="btn btn-primary">Submit</button>
+    </div>
+</form>
+
+<h3 align="center">Timesheet activity:</h3>
+<br>
+
+    <table  align="center"  class="table">
+        <thead>
+            <tr>
+                <th scope="col">User</th>
+                <th scope="col">Date</th>
+                <th scope="col">Project</th>        
+                <th scope="col">Worked Hours</th>
+                <th scope="col">Comments</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let timesheet of timesheets">
+                <td>{{timesheet.username  }}</td>
+                <td>{{timesheet.date}}</td>
+                <td>{{timesheet.project}}</td>
+                <td>{{timesheet.workedHours}}</td>
+                <td>{{timesheet.comments}}</td>
+            </tr>
+        </tbody> 
+      </table>
