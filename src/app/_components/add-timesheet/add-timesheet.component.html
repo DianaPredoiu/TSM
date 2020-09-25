@@ -120,7 +120,7 @@
                          <!-- select option -->
                          <label for="Project">Project</label>
                          <select class="form-control" formControlName="Project"  [ngClass]="{ 'is-invalid': submitted && timesheetActivity.controls.Project.errors?.required}">
-                            <option *ngFor="let project of projects" [value]="project.idProjectAssignment">{{project.projectName}}</option>
+                            <option *ngFor="let project of projects" [value]="project.idProject">{{project.projectName}}</option>
                          </select>
                          <!-- validation -->
                          <div *ngIf="submitted && timesheetActivity.controls.Project.errors?.required" class="invalid-feedback">

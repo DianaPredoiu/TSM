@@ -3,17 +3,23 @@
 <form style="margin-left: 20px;" [formGroup]="chooseDate" (ngSubmit)="onSubmit()">
     <div class="form-group">
         <label for="Date">Date</label>
-        <input type="date" formControlName="Date" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Date.errors }" />
-        <div *ngIf="submitted && f.Date.errors" class="invalid-feedback">
-            <div *ngIf="f.Date.errors.required">Date is required</div>
-        </div>
+        <input type="date" formControlName="Date" class="form-control" />
+      
     </div>
-    <div *ngIf="!id" class="form-group">
+    <div class="form-group">
         <label for="Project">Projects</label>
         <select class="form-control" formControlName="Project">
             <option [value]="project.idProject" *ngFor="let project of projects" >{{project.projectName}}</option>
-        </select>    
+        </select>
     </div>
+
+    <div class="form-group" *ngIf="currentUser.idRole!=1">
+        <label for="User">Users</label>
+        <select class="form-control" formControlName="User">
+            <option [value]="user.idUser" *ngFor="let user of users" >{{user.username}}</option>
+        </select>
+    </div>
+    
     <div class="form-group">
         <button class="btn btn-primary">Submit</button>
     </div>
@@ -22,15 +28,12 @@
 <h3 align="center">Timesheet activity:</h3>
 <br>
 
-    <table  align="center" style="margin-left: -80px;" class="table">
+    <table  align="center"  class="table">
         <thead>
             <tr>
                 <th scope="col">Date</th>
                 <th scope="col">Project</th>
-                <th scope="col">Start Time</th>
-                <th scope="col">End Time</th>
-                <th scope="col">Break</th>
-                <th scope="col">Location</th>            
+                <th scope="col">Users</th>       
                 <th scope="col">Worked Hours</th>
                 <th scope="col">Comments</th>
             </tr>
@@ -39,10 +42,7 @@
             <tr *ngFor="let timesheet of timesheets">
                 <td>{{timesheet.date}}</td>
                 <td>{{timesheet.project}}</td>
-                <td>{{timesheet.startTime}}</td>
-                <td>{{timesheet.endTime}}</td>
-                <td>{{timesheet.breakTime}}</td>
-                <td>{{timesheet.location}}</td>
+                <td>{{timesheet.username}}</td>
                 <td>{{timesheet.workedHours}}</td>
                 <td>{{timesheet.comments}}</td>
             </tr>

@@ -16,7 +16,7 @@ const appRoutes: Routes = [
     { path: 'changePassword', component: ChangePasswordComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'addTimesheet', component: AddTimesheetComponent },
-    { path: 'viewPersonalTimesheets/:id', component: ViewPersonalTimesheetsComponent }   ,
+    { path: 'viewPersonalTimesheets', component: ViewPersonalTimesheetsComponent }   ,
     { path: 'viewTeamMmemberTimesheets', component: ViewTeamMemberTimesheetsComponent },  
     { path: 'viewProjectMemberTimesheets', component: ViewProjectMemberTimesheetsComponent } , 
 

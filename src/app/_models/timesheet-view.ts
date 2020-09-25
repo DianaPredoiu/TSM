@@ -9,4 +9,5 @@ export class TimesheetView
      WorkedHours:number;
      Comments:string;
      IdUser:number;
+     Username:string;
 }

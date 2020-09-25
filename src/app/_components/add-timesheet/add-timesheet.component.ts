@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
-import { AuthenticationService, ProjectService,LocationService,TimesheetActivityService,AlertService, TimesheetService ,ProjectAssignmentsService} from "@/_services";
-import { User, Timesheet, TimesheetActivity, Project,Location, ProjectAssignments } from "@/_models";
+import { FormBuilder, FormGroup, Validators, FormArray} from '@angular/forms';
+import { AuthenticationService,LocationService,TimesheetActivityService,AlertService, TimesheetService ,ProjectAssignmentsService} from "@/_services";
+import { User, Timesheet, TimesheetActivity, Project,Location} from "@/_models";
 import { Subscription } from "rxjs";
 import { first } from "rxjs/operators";
 import { Converter } from "@/_helpers/converter";
@@ -158,19 +158,26 @@ export class AddTimesheetComponent implements OnInit {
 
     addActivity()
     {
+        console.log(this.activities);
          //adding activities
          for(let activity of this.activities)
          {
             activity.IdTimesheet=this.timesheetId;
-
+            console.log(this.timesheetId);
+            console.log(activity);
             this.timesheetActivityService.add(activity).pipe(first())
                   .subscribe(
                      data => {
-                      this.alertService.success('Added timesheet activity successfully', true);},
+                      this.alertService.success('Added timesheet activity successfully', true);
+                      console.log("activity added");
+                      },
                      error => {
                       this.alertService.error(error);
+                      console.log("error activity added");
                      });
          }
+
+         this.activities=[];
     }
 
     addTimesheet()
@@ -181,9 +188,11 @@ export class AddTimesheetComponent implements OnInit {
             data => {
                 this.alertService.success('Added timesheet successfully', true);
                 this.timesheetId=data as number;            
-                this.addActivity();},
+                this.addActivity();
+                console.log("timesheet added");},
             error => {
-                this.alertService.error(error);});
+                this.alertService.error(error);
+                console.log("timesheet added error")});
     }
 
      //generate new activity form btn

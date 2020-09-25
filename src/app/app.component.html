@@ -1,18 +1,4 @@
-﻿
-
-  
-<!-- main app container -->
-<!-- <div class="jumbotron">
-    <div class="container-lg">
-        <div class="row">
-            <div class="col-md-auto offset-md-2">
-                <alert></alert>
-                <router-outlet></router-outlet>
-            </div>
-        </div>
-    </div>
-</div> -->
-<div class="main"><!--main container-->
+﻿<div class="main"><!--main container-->
 
     <div class="row first-row"><!--first row-->
 
@@ -38,7 +24,7 @@
 
             <div  *ngIf="currentUser" class="sidenav"><!--sidenav-->
                 <a href="/addTimesheet">Add Timesheet</a>
-                <a href="/viewPersonalTimesheets/0">View Personal Timesheets</a>
+                <a href="/viewPersonalTimesheets">View Personal Timesheets</a>
                 <a href="/viewTeamMmemberTimesheets" *ngIf="currentUser.idRole==2">View Team Member Timesheets</a>
                 <a href="/viewProjectMemberTimesheets" *ngIf="currentUser.idRole==3">View Project Member Timesheets</a>
               </div>
