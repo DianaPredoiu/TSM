@@ -1,1 +1,1 @@
-this is a txt file for the first issue, made a branch for it and then merged with dev branch
+this is a test note for the firstIssue, made a branch for it and then merged with dev branch
