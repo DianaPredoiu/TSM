@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['iprojectmanagerservice_15',['IProjectManagerService',['../interface_web_api_1_1_i_project_manager_service.html',1,'WebApi']]]
+  ['appexception_247',['AppException',['../class_web_api_1_1_helpers_1_1_app_exception.html',1,'WebApi::Helpers']]],
+  ['appsettings_248',['AppSettings',['../class_web_api_1_1_helpers_1_1_app_settings.html',1,'WebApi::Helpers']]],
+  ['automapperprofile_249',['AutoMapperProfile',['../class_web_api_1_1_helpers_1_1_auto_mapper_profile.html',1,'WebApi::Helpers']]]
 ];

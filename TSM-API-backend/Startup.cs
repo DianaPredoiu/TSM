@@ -1,10 +1,12 @@
-﻿/*******************************************************
- * file\
- * Startup.cs file is the root folder of the project.It contains
- * Startup class, which is a default ASP.NET Core class with 
- * configuration methods.
+﻿/**************************************************************************************************************
+ * \file 
  * 
- ******************************************************/
+ * Startup.cs file is the root folder of the project.It contains
+ * Startup class, which is a default ASP.NET Core class with configuration methods.
+ * 
+ * For more details about ASP.NET Core see: https://docs.microsoft.com/en-us/aspnet/core/?view=aspnetcore-3.1
+ * 
+ **************************************************************************************************************/
 
 //namespaces used in Startup class
 using System.Threading.Tasks;
@@ -27,7 +29,7 @@ using WebApi.Services;
 /***********************************************************
  * 
  * WebApi namespace is called after the name of the backend 
- * API and it contains the Startup class.
+ * API and it contains all the classes of this project.
  * 
  **********************************************************/
 namespace WebApi

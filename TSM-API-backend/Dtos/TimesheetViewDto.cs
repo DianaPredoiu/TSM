@@ -1,12 +1,31 @@
-﻿using Newtonsoft.Json;
+﻿/*********************************************************************************
+ * \file 
+ * 
+ * TimesheetViewDto.cs file contains the TimesheetViewDto class, which is included 
+ * in Dtos namespace.
+ * 
+ ********************************************************************************/
+
+
+//list of namespaces used in TimesheetViewDto class
+using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WebApi.Helpers;
+//list of namespaces
 
 namespace WebApi.Dtos
 {
+    /*******************************************************
+     * 
+     * \class
+     * 
+     * TimesheetViewDto class is a model that has the structure of the 
+     * TimesheetView class.
+     * 
+     * The properties of the class have the same decription 
+     * as the ones in the TimesheetView class.
+     * 
+     ******************************************************/
     public class TimesheetViewDto
     {
         [JsonConverter(typeof(JsonDateConverter))]
@@ -31,5 +50,7 @@ namespace WebApi.Dtos
         public int IdUser { get; set; }
 
         public string Username { get; set; }
-    }
-}
+
+    }//CLASS TimesheetViewDto
+
+}//NAMESPACE WebApi.Dtos

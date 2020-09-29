@@ -1,41 +1,54 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
+﻿/*********************************************************************************
+ * \file 
+ * 
+ * TimesheetView.cs file contains the TimsheetView class, which is included in 
+ * Entities namespace.
+ * 
+ ********************************************************************************/
 
-using System.Threading.Tasks;
+
+//namespaces used in TimesheetView class
+using Newtonsoft.Json;
+using System;
 using WebApi.Helpers;
+//list of namespaces
 
 namespace WebApi.Entities
 {
+    /*******************************************************
+     * 
+     * \class
+     * 
+     * TimesheetView class is used to represent some 
+     * information collected from multiple tables as the 
+     * result of queries. 
+     * 
+     ******************************************************/
     public class TimesheetView
     {
-        //[DataType(DataType.Date)]
         [JsonConverter(typeof(JsonDateConverter))]
-        public DateTime Date { get; set; }
-
-        //[DataType(DataType.Date)]
-        [JsonConverter(typeof(JsonDateConverter))]
-        public DateTime StartTime { get; set; }
+        public DateTime Date { get; set; }  //!< The date of the timesheet
 
         [JsonConverter(typeof(JsonDateConverter))]
-        public DateTime EndTime { get; set; }
+        public DateTime StartTime { get; set; }  //!< The time a user started working of the specified date
 
-        //[JsonConverter(typeof(JsonDateConverter))]
-        public TimeSpan BreakTime { get; set; }
+        [JsonConverter(typeof(JsonDateConverter))]
+        public DateTime EndTime { get; set; }  //!< The time a user stopped working of the specified date
 
-        public string Location { get; set; }
+        public TimeSpan BreakTime { get; set; }   //!< The time span of the break in the work day
 
-        public string Project { get; set; }
+        public string Location { get; set; }  //!< The location the user is employed
 
-        public TimeSpan WorkedHours { get; set; }
+        public string Project { get; set; }   //!< The project the user is working on
 
-        public string Comments { get; set; }
+        public TimeSpan WorkedHours { get; set; }   //!< The time span a user worked on the specified project in the specified date
 
-        public int IdUser { get; set; }
+        public string Comments { get; set; }   //!< The comments a user had on the work from specified date,specified project
 
-        public string Username {get; set;}
+        public int IdUser { get; set; }  //!< The user's id
 
-    }
-}
+        public string Username {get; set;}  //!< The username
+
+    }//CLASS TimesheetView
+
+}//NAMESPACE WebApi.Entities
