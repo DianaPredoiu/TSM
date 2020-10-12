@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['configure_397',['Configure',['../class_web_api_1_1_startup.html#a331ffd3867deaa95a69d93ddba2eacc8',1,'WebApi::Startup']]],
-  ['configureservices_398',['ConfigureServices',['../class_web_api_1_1_startup.html#a86d6b2eeb514012a31c6dfc182ee673d',1,'WebApi::Startup']]],
-  ['create_399',['Create',['../class_web_api_1_1_controllers_1_1_timesheet_activity_controller.html#a395c96a6efe626b79ebb06e0c1782616',1,'WebApi.Controllers.TimesheetActivityController.Create()'],['../class_web_api_1_1_timesheets_controller.html#ad81058027f4f015d880b2210fb9a2fd1',1,'WebApi.TimesheetsController.Create()'],['../interface_web_api_1_1_services_1_1_i_timesheet_activity_service.html#ab7ed0417b746654b4c4513422961eafc',1,'WebApi.Services.ITimesheetActivityService.Create()'],['../class_web_api_1_1_services_1_1_timesheet_activity_service.html#a23c2384e7db4900e2c2d4bd6986cbbc2',1,'WebApi.Services.TimesheetActivityService.Create()'],['../interface_web_api_1_1_i_timesheet_service.html#ac221524983427f1639a0542a5c78aa88',1,'WebApi.ITimesheetService.Create()'],['../class_web_api_1_1_timesheet_service.html#a2c798f5edbf5f0028668f170d15f7f4e',1,'WebApi.TimesheetService.Create()'],['../interface_web_api_1_1_services_1_1_i_user_service.html#a4d36f6f689d3e8a5fcb63ad47e772833',1,'WebApi.Services.IUserService.Create()'],['../class_web_api_1_1_services_1_1_user_service.html#aadb63ef114a7cfad5c408daf72469bb4',1,'WebApi.Services.UserService.Create()']]]
+  ['main_22',['Main',['../class_web_api_1_1_program.html#a03f2b70e8298cbea5ee3e5e15266bbdd',1,'WebApi::Program']]]
 ];
