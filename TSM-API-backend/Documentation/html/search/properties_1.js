@@ -1,0 +1,4 @@
+var searchData=
+[
+  ['breaktime_481',['BreakTime',['../class_web_api_1_1_dtos_1_1_timesheet_activity_view_dto.html#a1190f1259c8e0e9b22a2939c810f228b',1,'WebApi.Dtos.TimesheetActivityViewDto.BreakTime()'],['../class_web_api_1_1_dtos_1_1_timesheet_dto.html#a00219099919468c3ff18651b214a39bc',1,'WebApi.Dtos.TimesheetDto.BreakTime()'],['../class_web_api_1_1_dtos_1_1_timesheet_view_dto.html#a58aaaa691538246e0bc21b12eec1675d',1,'WebApi.Dtos.TimesheetViewDto.BreakTime()'],['../class_web_api_1_1_entities_1_1_timesheet.html#a21f6815ee550d1ac6fb77df22c4f55c1',1,'WebApi.Entities.Timesheet.BreakTime()'],['../class_web_api_1_1_entities_1_1_timesheet_activity_view.html#a57e1fc83dbf2def869745821a99602ff',1,'WebApi.Entities.TimesheetActivityView.BreakTime()'],['../class_web_api_1_1_entities_1_1_timesheet_view.html#a921cf4d505590253b55fab9e7967a547',1,'WebApi.Entities.TimesheetView.BreakTime()']]]
+];

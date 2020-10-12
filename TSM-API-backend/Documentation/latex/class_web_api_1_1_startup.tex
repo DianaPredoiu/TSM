@@ -1,0 +1,88 @@
+\hypertarget{class_web_api_1_1_startup}{}\doxysection{Web\+Api.\+Startup Class Reference}
+\label{class_web_api_1_1_startup}\index{WebApi.Startup@{WebApi.Startup}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_web_api_1_1_startup_a7dbb767cbf832657f7b65221b7ef6b37}{Startup}} (I\+Configuration configuration)
+\item 
+void \mbox{\hyperlink{class_web_api_1_1_startup_a86d6b2eeb514012a31c6dfc182ee673d}{Configure\+Services}} (I\+Service\+Collection services)
+\item 
+void \mbox{\hyperlink{class_web_api_1_1_startup_a331ffd3867deaa95a69d93ddba2eacc8}{Configure}} (I\+Application\+Builder app, I\+Hosting\+Environment env)
+\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_web_api_1_1_startup_ab1bec251611476a97c5bd8261718ec6c}\label{class_web_api_1_1_startup_ab1bec251611476a97c5bd8261718ec6c}} 
+I\+Configuration \mbox{\hyperlink{class_web_api_1_1_startup_ab1bec251611476a97c5bd8261718ec6c}{Configuration}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Property used in the \mbox{\hyperlink{class_web_api_1_1_startup}{Startup}} Constructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_web_api_1_1_startup}{Startup}} class is a default class in A\+S\+P.\+N\+ET Core and,it is executed first when the application starts. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_web_api_1_1_startup_a7dbb767cbf832657f7b65221b7ef6b37}\label{class_web_api_1_1_startup_a7dbb767cbf832657f7b65221b7ef6b37}} 
+\index{WebApi.Startup@{WebApi.Startup}!Startup@{Startup}}
+\index{Startup@{Startup}!WebApi.Startup@{WebApi.Startup}}
+\doxysubsubsection{\texorpdfstring{Startup()}{Startup()}}
+{\footnotesize\ttfamily Web\+Api.\+Startup.\+Startup (\begin{DoxyParamCaption}\item[{I\+Configuration}]{configuration }\end{DoxyParamCaption})}
+
+\mbox{\hyperlink{class_web_api_1_1_startup}{Startup}} Constructor takes an I\+Configuration type parameter to set the configuration of the application. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_web_api_1_1_startup_a331ffd3867deaa95a69d93ddba2eacc8}\label{class_web_api_1_1_startup_a331ffd3867deaa95a69d93ddba2eacc8}} 
+\index{WebApi.Startup@{WebApi.Startup}!Configure@{Configure}}
+\index{Configure@{Configure}!WebApi.Startup@{WebApi.Startup}}
+\doxysubsubsection{\texorpdfstring{Configure()}{Configure()}}
+{\footnotesize\ttfamily void Web\+Api.\+Startup.\+Configure (\begin{DoxyParamCaption}\item[{I\+Application\+Builder}]{app,  }\item[{I\+Hosting\+Environment}]{env }\end{DoxyParamCaption})}
+
+Configure Method is userd to specify how the app responds to H\+T\+TP requests.
+
+This method contains app parameter of type I\+Application\+Builder App acceses the following extensions\+:
+\begin{DoxyItemize}
+\item Use\+Cors\+: Adds Cors\+Middleware(\+Allow\+Any\+Origin,\+Allow\+Any\+Method,\+Allow\+Any\+Header)
+\item Use\+Authentication\+: Enables authentication abilities
+\item Use\+Mvc\+: Adds Mvc to App\+Builder
+\end{DoxyItemize}
+
+For more details go to\+: \href{https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.builder.applicationbuilder?view=aspnetcore-3.1}{\texttt{ https\+://docs.\+microsoft.\+com/en-\/us/dotnet/api/microsoft.\+aspnetcore.\+builder.\+applicationbuilder?view=aspnetcore-\/3.\+1}} \mbox{\Hypertarget{class_web_api_1_1_startup_a86d6b2eeb514012a31c6dfc182ee673d}\label{class_web_api_1_1_startup_a86d6b2eeb514012a31c6dfc182ee673d}} 
+\index{WebApi.Startup@{WebApi.Startup}!ConfigureServices@{ConfigureServices}}
+\index{ConfigureServices@{ConfigureServices}!WebApi.Startup@{WebApi.Startup}}
+\doxysubsubsection{\texorpdfstring{ConfigureServices()}{ConfigureServices()}}
+{\footnotesize\ttfamily void Web\+Api.\+Startup.\+Configure\+Services (\begin{DoxyParamCaption}\item[{I\+Service\+Collection}]{services }\end{DoxyParamCaption})}
+
+Configure\+Services configures the app\textquotesingle{}s services. Services are registered in this method and consumed across the app via DI or Application\+Services.
+
+For more details go to\+: \href{https://docs.microsoft.com/en-us/aspnet/core/fundamentals/startup?view=aspnetcore-3.1}{\texttt{ https\+://docs.\+microsoft.\+com/en-\/us/aspnet/core/fundamentals/startup?view=aspnetcore-\/3.\+1}}
+
+App\textquotesingle{}s configure services(from I\+Service\+Collection) contain\+:
+\begin{DoxyItemize}
+\item Add\+Cors\+: Cors(cross origin resource sharing services)
+\item Add\+Db\+Cotext\+: Registers the given context(\+Data\+Context) as a service
+\item Add\+Mvc\+: Adds M\+VC services
+\item Add\+Auto\+Mapper\+: Adds auto-\/mapper services
+\item Add\+Authentication\+: Completes authentication-\/related actions
+\item Add\+Jwt\+Bearer\+: Sets up the jwt bearer authentication
+\item Add\+Scoped\+: Adds a scoped serivce
+\end{DoxyItemize}
+
+For more details about I\+Service\+Collection\+: \href{https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection?view=dotnet-plat-ext-3.1}{\texttt{ https\+://docs.\+microsoft.\+com/en-\/us/dotnet/api/microsoft.\+extensions.\+dependencyinjection.\+iservicecollection?view=dotnet-\/plat-\/ext-\/3.\+1}} For more details about Jwt Bearer\+: \href{https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.dependencyinjection.jwtbearerextensions?view=aspnetcore-3.0}{\texttt{ https\+://docs.\+microsoft.\+com/en-\/us/dotnet/api/microsoft.\+extensions.\+dependencyinjection.\+jwtbearerextensions?view=aspnetcore-\/3.\+0}}
+
+This Method also configures (by\+DI) services from Services file\+:
+\begin{DoxyItemize}
+\item User\+Service
+\item Timesheet\+Service
+\item Timesheet\+Activity\+Service
+\item Team\+Service
+\item Role\+Service
+\item Project\+Service
+\item Project\+Manager\+Serivce
+\item Project\+Assignments\+Service
+\item Location\+Service
+\end{DoxyItemize}
+
+For more details go to Services paragraph of the documentation 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_startup_8cs}{Startup.\+cs}}\end{DoxyCompactItemize}
