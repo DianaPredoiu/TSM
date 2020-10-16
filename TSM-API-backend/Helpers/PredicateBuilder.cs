@@ -13,10 +13,7 @@ namespace WebApi.Helpers
 
         public static Expression<Func<T, bool>> True<T>() { return f => true; }
 
-
-
         public static Expression<Func<T, bool>> False<T>() { return f => false; }
-
 
 
         public static Expression<Func<T, bool>> Or<T>(this Expression<Func<T, bool>> expr1, Expression<Func<T, bool>> expr2)
@@ -72,8 +69,7 @@ namespace WebApi.Helpers
 
 
 
-            if (date != null)
-
+            if (date > DateTime.MinValue)
             {
 
                 navigationProperties.Add(p => p.Date == date);

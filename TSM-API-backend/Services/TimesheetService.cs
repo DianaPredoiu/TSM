@@ -46,6 +46,8 @@ namespace WebApi
         //filter by project and user for team leader and project manager 6
         IEnumerable<TimesheetView> GetTimesheetByProjectUserTeamLeader(int IdProject, int IdUser);
 
+        IEnumerable<TimesheetView> GetFilteredTimesheet(DateTime date, string project1, string username);
+
         IEnumerable<Timesheet> GetAll();
 
         int Create(Timesheet timesheet);
@@ -436,6 +438,40 @@ namespace WebApi
                             };
 
             return timesheet;
+        }
+
+        public IEnumerable<TimesheetView> GetFilteredTimesheet(DateTime date, string project, string username)
+        {
+            var timesheets = _context.Timesheets;
+            var timesheetActivities = _context.TimesheetActivities;
+            var projects = _context.Projects;
+            var locations = _context.Locations;
+            var users = _context.Users;
+
+            var timesheet = from t in timesheetActivities
+                            join ts in timesheets on t.IdTimesheet equals ts.IdTimesheet
+                            join l in locations on ts.IdLocation equals l.IdLocation
+                            join p in projects on t.IdProject equals p.IdProject
+                            join u in users on ts.IdUser equals u.IdUser
+                            select new TimesheetView
+                            {
+                                Location = l.LocationName,
+                                Project = p.ProjectName,
+                                IdUser = ts.IdUser,
+                                Date = ts.Date,
+                                StartTime = ts.StartTime,
+                                EndTime = ts.EndTime,
+                                BreakTime = ts.BreakTime,
+                                WorkedHours = t.WorkedHours,
+                                Comments = t.Comments,
+                                Username = u.Username
+                            };
+            if(date==null)
+            {
+                date = DateTime.MinValue;
+            }
+
+            return timesheet.AsQueryable().Where(GenerateFilter.GenerateTimesheetFilter(date,project,username)).ToList();
         }
 
         public IEnumerable<Timesheet> GetAll()

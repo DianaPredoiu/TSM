@@ -170,7 +170,7 @@ namespace WebApi
         public IActionResult GetByFilter(DateTime date, string user, string project)
         {
 
-            var timesheet = GenerateFilter.GenerateTimesheetFilter(date,project,user);
+            var timesheet = _timesheetService.GetFilteredTimesheet(date, project, user);
             var timesheetDtos = _mapper.Map<IList<TimesheetViewDto>>(timesheet);
 
             return Ok(timesheetDtos);
