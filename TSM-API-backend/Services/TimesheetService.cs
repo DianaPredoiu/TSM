@@ -46,7 +46,7 @@ namespace WebApi
         //filter by project and user for team leader and project manager 6
         IEnumerable<TimesheetView> GetTimesheetByProjectUserTeamLeader(int IdProject, int IdUser);
 
-        IEnumerable<TimesheetView> GetFilteredTimesheet(DateTime date, string project1, string username);
+        IEnumerable<TimesheetView> GetFilteredTimesheet(string date, string project1, string username);
 
         IEnumerable<Timesheet> GetAll();
 
@@ -440,7 +440,7 @@ namespace WebApi
             return timesheet;
         }
 
-        public IEnumerable<TimesheetView> GetFilteredTimesheet(DateTime date, string project, string username)
+        public IEnumerable<TimesheetView> GetFilteredTimesheet(string date, string project, string username)
         {
             var timesheets = _context.Timesheets;
             var timesheetActivities = _context.TimesheetActivities;
@@ -466,11 +466,8 @@ namespace WebApi
                                 Comments = t.Comments,
                                 Username = u.Username
                             };
-            if(date==null)
-            {
-                date = DateTime.MinValue;
-            }
 
+           
             return timesheet.AsQueryable().Where(GenerateFilter.GenerateTimesheetFilter(date,project,username)).ToList();
         }
 

@@ -9,14 +9,14 @@
     <div class="form-group">
         <label for="Project">Projects</label>
         <select class="form-control" formControlName="Project">
-            <option [value]="project.idProject" *ngFor="let project of projects" >{{project.projectName}}</option>
+            <option [value]="project.projectName" *ngFor="let project of projects" >{{project.projectName}}</option>
         </select>
     </div>
 
     <div class="form-group" *ngIf="currentUser.idRole!=1">
         <label for="User">Users</label>
         <select class="form-control" formControlName="User">
-            <option [value]="user.idUser" *ngFor="let user of users" >{{user.username}}</option>
+            <option [value]="user.username" *ngFor="let user of users" >{{user.username}}</option>
         </select>
     </div>
     

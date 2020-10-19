@@ -47,7 +47,7 @@ namespace WebApi.Helpers
 
     public class GenerateFilter
     {
-        public static Expression<Func<TimesheetView, bool>> GenerateTimesheetFilter(DateTime date, string project, string user)
+        public static Expression<Func<TimesheetView, bool>> GenerateTimesheetFilter(string date, string project, string user)
         {
 
             List<Expression<Func<TimesheetView, bool>>> navigationProperties = new List<Expression<Func<TimesheetView, bool>>>();
@@ -69,10 +69,10 @@ namespace WebApi.Helpers
 
 
 
-            if (date > DateTime.MinValue)
+            if (date != null)
             {
 
-                navigationProperties.Add(p => p.Date == date);
+                navigationProperties.Add(p => p.Date.Equals(DateTime.Parse(date)));
 
             }
 

@@ -167,7 +167,7 @@ namespace WebApi
         [AllowAnonymous]
         //GETALL TIMESHEETS
         [HttpGet("filter/{date}/{project}/{user}")]
-        public IActionResult GetByFilter(DateTime date, string user, string project)
+        public IActionResult GetByFilter(string date, string user, string project)
         {
 
             var timesheet = _timesheetService.GetFilteredTimesheet(date, project, user);
