@@ -1,21 +1,37 @@
-﻿using AutoMapper;
+﻿/*********************************************************************************
+ * \file 
+ * 
+ * TimesheetActivityController.cs file contains the TimesheetActivityController
+ * class, which is included in Controllers namespace.
+ * 
+ ********************************************************************************/
+
+//list of namespaces used in TimesheetActivityController class
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WebApi.Dtos;
 using WebApi.Entities;
 using WebApi.Helpers;
 using WebApi.Services;
+//list of namespaces
 
 namespace WebApi.Controllers
 {
     [Authorize]
     [ApiController]
     [Route("[controller]")]//MAIN ROUTE
+
+    /*******************************************************
+    * 
+    * \class
+    * 
+    * TimesheetActivityController class contains all the methods
+    * that contain http requests and dto mapping for 
+    * TimesheetActivity related data.
+    * 
+    ******************************************************/
     public class TimesheetActivityController : ControllerBase
     {
         //ATTRIBUTES
@@ -23,7 +39,12 @@ namespace WebApi.Controllers
         private IMapper _mapper;
         private readonly AppSettings _appSettings;
 
-        //CONSTRUCTOR
+        /*************************************************************
+        * 
+        * TimesheetActivityController Constructor injects 
+        * TimesheetActivityService,the Mapper class and AppSettings class.
+        * 
+        ************************************************************/
         public TimesheetActivityController(
             ITimesheetActivityService timesheetActivityService,
             IMapper mapper,
@@ -37,6 +58,15 @@ namespace WebApi.Controllers
         [AllowAnonymous]
         //GETALL USERS
         [HttpPost("create")]
+        /***********************************************************************************
+        * 
+        * Create method:
+        *     + Return type: IActionResult.
+        *     + @param timesheetActivityDto: first argument,type TimesheetActivityDto.
+        *     + It is used to add a new timehseet activity to the table.
+        *     + HttpGet HttpPost.
+        * 
+        ***********************************************************************************/
         public IActionResult Create([FromBody]TimesheetActivityDto timesheetActivityDto)
         {
             // map dto to entity
@@ -58,5 +88,6 @@ namespace WebApi.Controllers
         }
 
         
-    }
-}
+    }//CLASS 
+
+}//NAMESPACE

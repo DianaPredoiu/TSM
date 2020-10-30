@@ -1,28 +1,49 @@
-﻿using AutoMapper;
+﻿/*********************************************************************************
+ * \file 
+ * 
+ * TeamsController.cs file contains the TeamsController class, which is 
+ * included in Controllers namespace.
+ * 
+ ********************************************************************************/
+
+//list of namespaces used in TeamsController class
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WebApi.Dtos;
 using WebApi.Helpers;
 using WebApi.Services;
+//list of namespaces
 
 namespace WebApi.Controllers
 {
     [Authorize]
     [ApiController]
     [Route("[controller]")]//MAIN ROUTE
+
+    /*******************************************************
+     * 
+     * \class
+     * 
+     * TeamsController class contains all the methods
+     * that contain http requests and dto mapping for Teams 
+     * related data.
+     * 
+     ******************************************************/
     public class TeamsController : ControllerBase
     {
-        //ATTRIBUTES
         private ITeamService _teamService;
         private IMapper _mapper;
         private readonly AppSettings _appSettings;
 
-        //CONSTRUCTOR
+        /*************************************************************
+         * 
+         * TeamsController Constructor injects 
+         * TeamsService,the Mapper class and AppSettings class.
+         * 
+         ************************************************************/
         public TeamsController(
             ITeamService teamService,
             IMapper mapper,
@@ -34,8 +55,15 @@ namespace WebApi.Controllers
         }
 
         [AllowAnonymous]
-        //GETALL USERS
         [HttpGet]
+       /***********************************************************************************
+       * 
+       * GetAll method:
+       *     + Return type: IActionResult.
+       *     + It is used to get all the teams that are registered in the Teams table.
+       *     + HttpGet request.
+       * 
+       ***********************************************************************************/
         public IActionResult GetAll()
         {
             var teams = _teamService.GetAll();
