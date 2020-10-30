@@ -1,4 +1,12 @@
-﻿using AutoMapper;
+﻿/*********************************************************************************
+ * \file 
+ * 
+ * UserService.cs file contains the UserService class, which is included in 
+ * Services namespace.
+ * 
+ ********************************************************************************/
+
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;

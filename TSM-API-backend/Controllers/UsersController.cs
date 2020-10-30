@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*********************************************************************************
+ * \file 
+ * 
+ * UserService.cs file contains the UserService class, which is included in 
+ * Services namespace.
+ * 
+ ********************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;

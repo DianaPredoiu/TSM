@@ -31,15 +31,15 @@ namespace WebApi.Dtos
         [JsonConverter(typeof(JsonDateConverter))]
         public DateTime Date { get; set; }
 
-        [JsonConverter(typeof(JsonDateConverter))]
-        public DateTime StartTime { get; set; }
+        //[JsonConverter(typeof(JsonDateConverter))]
+        //public DateTime StartTime { get; set; }
 
-        [JsonConverter(typeof(JsonDateConverter))]
-        public DateTime EndTime { get; set; }
+        //[JsonConverter(typeof(JsonDateConverter))]
+        //public DateTime EndTime { get; set; }
 
-        public TimeSpan BreakTime { get; set; }
+        //public TimeSpan BreakTime { get; set; }
 
-        public string Location { get; set; }
+        //public string Location { get; set; }
 
         public string Project { get; set; }
 
@@ -50,6 +50,14 @@ namespace WebApi.Dtos
         public int IdUser { get; set; }
 
         public string Username { get; set; }
+
+        public int IdTeam { get; set; }
+
+        public int IdManager { get; set; }
+
+        public int IdProject { get; set; }
+
+        //public int IdTimesheetView { get; set; }
 
     }//CLASS TimesheetViewDto
 

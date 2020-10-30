@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using System;
 using System.Collections.Generic;
 using WebApi.Dtos;
 using WebApi.Entities;
@@ -166,11 +165,11 @@ namespace WebApi
 
         [AllowAnonymous]
         //GETALL TIMESHEETS
-        [HttpGet("filter/{date}/{project}/{user}")]
-        public IActionResult GetByFilter(string date, string user, string project)
+        [HttpPost("filter")]
+        public IActionResult GetByFilter([FromBody]TimesheetObjDto timesheetObjDto)
         {
-
-            var timesheet = _timesheetService.GetFilteredTimesheet(date, project, user);
+            var timesheetObj = _mapper.Map<TimesheetObj>(timesheetObjDto);
+            var timesheet = _timesheetService.GetFilteredTimesheet(timesheetObj);
             var timesheetDtos = _mapper.Map<IList<TimesheetViewDto>>(timesheet);
 
             return Ok(timesheetDtos);

@@ -1,16 +1,14 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 using WebApi.Entities;
 
 namespace WebApi.Helpers
 {
     public static class  PredicateBuilder
     {
-
-
         public static Expression<Func<T, bool>> True<T>() { return f => true; }
 
         public static Expression<Func<T, bool>> False<T>() { return f => false; }
@@ -30,7 +28,6 @@ namespace WebApi.Helpers
 
 
         public static Expression<Func<T, bool>> And<T>(this Expression<Func<T, bool>> expr1, Expression<Func<T, bool>> expr2)
-
         {
 
             var invokedExpr = Expression.Invoke(expr2, expr1.Parameters.Cast<Expression>());
@@ -47,7 +44,7 @@ namespace WebApi.Helpers
 
     public class GenerateFilter
     {
-        public static Expression<Func<TimesheetView, bool>> GenerateTimesheetFilter(string date, string project, string user)
+        public static Expression<Func<TimesheetView, bool>> GenerateTimesheetFilter(TimesheetObj timesheetObj)
         {
 
             List<Expression<Func<TimesheetView, bool>>> navigationProperties = new List<Expression<Func<TimesheetView, bool>>>();
@@ -66,21 +63,28 @@ namespace WebApi.Helpers
             //    //navigationProperties.Add(p => tags.All(x => p.Tutorial.Contains(x)));
 
             //}
-
-
-
-            if (date != null)
+            if(timesheetObj.IdManager != -1)
             {
+                navigationProperties.Add(p => p.IdManager == timesheetObj.IdManager);
+            }
 
-                navigationProperties.Add(p => p.Date.Equals(DateTime.Parse(date)));
+            if (timesheetObj.IdTeam != -1)
+            {
+                navigationProperties.Add(p => p.IdTeam == timesheetObj.IdTeam);
+            }
+
+            if (!timesheetObj.Date.Equals("nullDate"))
+            {
+                
+                navigationProperties.Add(p => p.Date.Equals(DateTime.Parse(timesheetObj.Date)));
+
 
             }
 
-            if (project != null)
-
+            if (timesheetObj.IdProject != -1)
             {
 
-                navigationProperties.Add(p => p.Project == project);
+                navigationProperties.Add(p => p.IdProject == timesheetObj.IdProject);
 
             }
 
@@ -93,10 +97,10 @@ namespace WebApi.Helpers
 
 
 
-            if (user != null)
+            if (timesheetObj.IdUser !=-1)
             {
 
-                navigationProperties.Add(p => p.Username == user);
+                navigationProperties.Add(p => p.IdUser == timesheetObj.IdUser);
 
             }
 
@@ -180,7 +184,36 @@ namespace WebApi.Helpers
         //    }
     }
 
+   
+    public class Generic<T> where T : class
+    {
+        
+        public static IList<T> GetList(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] navigationProperties)
+        {
+            var connectionstring = "Server=DESKTOP-RPNBQ1M;Integrated Security=true;Database=TSM;";
+
+            var optionsBuilder = new DbContextOptionsBuilder<DataContext>();
+            optionsBuilder.UseSqlServer(connectionstring);
 
 
+
+            using (DataContext context = new DataContext(optionsBuilder.Options))
+            {
+               IQueryable<T> dbQuery = context.Set<T>();
+
+                foreach (Expression<Func<T, object>> navigationProperty in navigationProperties)
+                    dbQuery = dbQuery.Include(navigationProperty);
+
+                dbQuery = dbQuery
+                          .AsNoTracking()
+                          .Where(where);
+
+                return dbQuery.ToList<T>();
+            }
+
+        }
+    }
+
+    
 }
 

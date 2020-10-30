@@ -59,6 +59,8 @@ namespace WebApi
 
             public DbSet<ProjectAssignments> ProjectAssignments { get; set; }  //!< Gets data from ProjectAssignments table
 
+            public DbSet<TimesheetView> TimesheetViews { get; set; } //!< Gets data from TimesheetView table
+
 
         }//CLASS DataContext
 
