@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Timesheet, TimesheetView } from '@/_models';
 import {AlertService} from './alert.service';
 import {Router} from '@angular/router';
+import { TimesheetUpdate } from '@/_models/timsheet-update';
 
 @Injectable({ providedIn: 'root' })
 export class TimesheetService {
@@ -78,6 +79,11 @@ export class TimesheetService {
     getByUserDate_Manager(IdUser:string,IdManager:number,date:string)
     {
         return this.http.get<TimesheetView[]>(`${config.apiUrl}/timesheets/byUserDate_ProjectManager/${IdManager}/${IdUser}/${date}`);
+    }
+
+    getTimsheetByDate(date:string,IdUser:number)
+    {
+        return this.http.get<TimesheetUpdate>(`${config.apiUrl}/timesheets/byDate/${date}/${IdUser}`);
     }
 
 }

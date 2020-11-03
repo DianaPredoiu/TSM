@@ -196,5 +196,16 @@ namespace WebApi
                 return BadRequest(new { message = ex.Message });
             }
         }
+
+        [AllowAnonymous]
+        //GET TIMESHEET BY USER DATE FOR PROJECT MANAGER
+        [HttpGet("byDate/{date}/{IdUser}")]//ROUTE
+        public IActionResult GetByDate(int IdUser, DateTime date)
+        {
+            var timesheet = _timesheetService.GetTimesheetByDate(date,IdUser);
+
+            var timesheetDto = _mapper.Map<TimsheetUpdateDto>(timesheet);
+            return Ok(timesheetDto);
+        }
     }
 }
