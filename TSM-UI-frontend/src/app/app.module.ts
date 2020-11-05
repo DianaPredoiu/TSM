@@ -14,6 +14,7 @@ import { AddTimesheetComponent } from './_components/add-timesheet/add-timesheet
 import { ViewPersonalTimesheetsComponent} from './_components/view-personal-timesheets/view-personal-timesheets.component';
 import { ViewProjectMemberTimesheetsComponent } from './_components/view-project-member-timesheets/view-project-member-timesheets.componen';
 import { ViewTeamMemberTimesheetsComponent } from './_components/view-team-member-timesheets/view-team-member-timesheets.component';
+import { UpdateTimesheetComponent } from './_components/update-timesheet/update-timesheet.component';
 
 
 @NgModule({
@@ -31,7 +32,7 @@ import { ViewTeamMemberTimesheetsComponent } from './_components/view-team-membe
         RegisterComponent,
         ChangePasswordComponent,
         AddTimesheetComponent,
-        ViewPersonalTimesheetsComponent,ViewProjectMemberTimesheetsComponent,ViewTeamMemberTimesheetsComponent
+        ViewPersonalTimesheetsComponent,ViewProjectMemberTimesheetsComponent,ViewTeamMemberTimesheetsComponent,UpdateTimesheetComponent
     
     ],
     providers: [
