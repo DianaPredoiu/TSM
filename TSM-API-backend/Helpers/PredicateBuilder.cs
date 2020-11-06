@@ -51,18 +51,6 @@ namespace WebApi.Helpers
 
             var predicate = PredicateBuilder.True<TimesheetView>();
 
-
-
-            //if (!string.IsNullOrEmpty(tag) && tag.Split(',') != null)
-            //{
-
-            //    string tagsString = tag.Substring(0, tag.Length - 1);
-
-            //    List<String> tags = tagsString.Split(',').ToList();
-
-            //    //navigationProperties.Add(p => tags.All(x => p.Tutorial.Contains(x)));
-
-            //}
             if(timesheetObj.IdManager != -1)
             {
                 navigationProperties.Add(p => p.IdManager == timesheetObj.IdManager);
@@ -78,7 +66,6 @@ namespace WebApi.Helpers
                 
                 navigationProperties.Add(p => p.Date.Equals(DateTime.Parse(timesheetObj.Date)));
 
-
             }
 
             if (timesheetObj.IdProject != -1)
@@ -88,15 +75,6 @@ namespace WebApi.Helpers
 
             }
 
-            //if (!String.IsNullOrEmpty(searchKey))
-            //{
-
-            //    navigationProperties.Add(p => p.Title.ToLower().Contains(searchKey.ToLower()));
-
-            //}
-
-
-
             if (timesheetObj.IdUser !=-1)
             {
 
@@ -104,9 +82,6 @@ namespace WebApi.Helpers
 
             }
 
-
-
-            //navigationProperties.Add(p => p.IsHidden == hidden);
 
 
 
@@ -185,34 +160,6 @@ namespace WebApi.Helpers
     }
 
    
-    public class Generic<T> where T : class
-    {
-        
-        public static IList<T> GetList(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] navigationProperties)
-        {
-            var connectionstring = "Server=DESKTOP-RPNBQ1M;Integrated Security=true;Database=TSM;";
-
-            var optionsBuilder = new DbContextOptionsBuilder<DataContext>();
-            optionsBuilder.UseSqlServer(connectionstring);
-
-
-
-            using (DataContext context = new DataContext(optionsBuilder.Options))
-            {
-               IQueryable<T> dbQuery = context.Set<T>();
-
-                foreach (Expression<Func<T, object>> navigationProperty in navigationProperties)
-                    dbQuery = dbQuery.Include(navigationProperty);
-
-                dbQuery = dbQuery
-                          .AsNoTracking()
-                          .Where(where);
-
-                return dbQuery.ToList<T>();
-            }
-
-        }
-    }
 
     
 }

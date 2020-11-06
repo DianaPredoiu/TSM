@@ -169,7 +169,7 @@ namespace WebApi
         public IActionResult GetByFilter([FromBody]TimesheetObjDto timesheetObjDto)
         {
             var timesheetObj = _mapper.Map<TimesheetObj>(timesheetObjDto);
-            var timesheet = _timesheetService.GetFilteredTimesheet(timesheetObj);
+            var timesheet = Filter.GetFilteredTimesheet(timesheetObj);
             var timesheetDtos = _mapper.Map<IList<TimesheetViewDto>>(timesheet);
 
             return Ok(timesheetDtos);
