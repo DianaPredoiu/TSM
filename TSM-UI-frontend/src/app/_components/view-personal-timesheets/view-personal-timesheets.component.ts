@@ -6,9 +6,7 @@ import { Subscription } from "rxjs";
 import { first } from "rxjs/operators";
 import { TimesheetView } from "@/_models/timesheet-view";
 import { ActivatedRoute } from "@angular/router";
-import { IfStmt } from "@angular/compiler";
-import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
-import { timeStamp } from "console";
+import { TimesheetObj } from "@/_models/timesheet-obj";
 
 @Component({ templateUrl: 'view-personal-timesheets.component.html',styleUrls: ['table-style.css']})
 
@@ -24,6 +22,7 @@ export class ViewPersonalTimesheetsComponent implements OnInit {
     users:User[]=[];
     project:number;
     user:number;
+    timesheetObj:TimesheetObj;
    
 
     constructor(
@@ -92,142 +91,62 @@ export class ViewPersonalTimesheetsComponent implements OnInit {
     get f() { return this.chooseDate.controls; }
 
 
-    // //gets activities by project and date
-    // getByProjectDateTeamLeader()
-    // {        
-    //         this.timesheetService.getByProjectDateTeamLeader(this.currentUser.idTeam,this.f.Project.value,this.f.Date.value).pipe(first()).subscribe(timesheets=>{
-    //             this.timesheets=timesheets;
-    //              console.log("GET request succesfully done");
-               
-    //             });
-                  
-    // }
-
-    // //gets activities by date 
-    // getByDateTeamLeader()
-    // {
-       
-    //     this.timesheetService.getByDateTeamLeader(this.currentUser.idTeam,this.f.Date.value).pipe(first()).subscribe(timesheets=>{
-    //         this.timesheets=timesheets;
-    //         console.log("GET request succesfully done");
-        
-    //         });
-    // }
-
-    // //gets activities by project
-    // getByProjectTeamLeader()
-    // {
-    //     this.timesheetService.getByProjectTeamLeader(this.currentUser.idTeam,this.f.Project.value).pipe(first()).subscribe(timesheets=>{
-    //         this.timesheets=timesheets;
-    //         console.log("GET request succesfully done");
-        
-    //         });
-    // }
-
-    // //gets activities by user
-    // getByUserTeamLeader()
-    // {
-    //     this.timesheetService.getByUserTeamLeader(this.f.User.value).pipe(first()).subscribe(timesheets=>{
-    //         this.timesheets=timesheets;
-    //         console.log("GET request succesfully done");
-        
-    //         });
-    // }
-
-    //  //gets activities by user and date
-    //  getByUserDateTeamLeader()
-    //  {
-    //      this.timesheetService.getByUserDateTeamLeader(this.f.User.value,this.f.Date.value).pipe(first()).subscribe(timesheets=>{
-    //          this.timesheets=timesheets;
-    //          console.log("GET request succesfully done");
-         
-    //          });
-    //  }
-
-    //   //gets activities by user and project
-    //   getByUserProjectTeamLeader()
-    //   {
-          
-    //       this.timesheetService.getByUserProjectTeamLeader(this.f.Project.value,this.f.User.value).pipe(first()).subscribe(timesheets=>{
-    //           this.timesheets=timesheets;
-    //           console.log("GET request succesfully done");
-          
-    //           });
-
-    //   }
-
-    //   //gets activities by user and date and project
-    //   getByUserDateProjectTeamLeader()
-    //   {
-    //       this.timesheetService.getByUserDateProjectTeamLeader(this.f.User.value,this.f.Project.value,this.f.Date.value).pipe(first()).subscribe(timesheets=>{
-    //           this.timesheets=timesheets;
-    //           console.log("GET request succesfully done");
-          
-    //           });
-    //   }
-
-    //   getByProjectDate_Manager()
-    //   {
-    //     this.timesheetService.getByProjectDate_Manager(this.f.Project.value,this.f.Date.value).pipe(first()).subscribe(timesheets=>{
-    //         this.timesheets=timesheets;
-    //         console.log("GET request succesfully done");
-        
-    //         });
-    //   }
-
-    //   getByProject_Manager()
-    //   {
-    //     this.timesheetService.getByProject_Manager(this.f.Project.value).pipe(first()).subscribe(timesheets=>{
-    //         this.timesheets=timesheets;
-    //         console.log("GET request succesfully done");
-        
-    //         });
-    //   }
-
-    //   getByDate_Manager()
-    //   {
-    //     this.timesheetService. getByDate_Manager(this.f.Date.value,this.currentUser.idUser).pipe(first()).subscribe(timesheets=>{
-    //         this.timesheets=timesheets;
-    //         console.log("GET request succesfully done");
-        
-    //         });
-    //   }
-
-    //   getByUser_Manager()
-    //   {
-    //     this.timesheetService. getByUser_Manager(this.f.User.value,this.currentUser.idUser).pipe(first()).subscribe(timesheets=>{
-    //         this.timesheets=timesheets;
-    //         console.log("GET request succesfully done");
-        
-    //         });
-    //   }
-
-    //   getByUserDate_Manager()
-    //   {
-    //     this.timesheetService.getByUserDate_Manager(this.f.User.value,this.currentUser.idUser,this.f.Date.value).pipe(first()).subscribe(timesheets=>{
-    //         this.timesheets=timesheets;
-    //         console.log("GET request succesfully done");
-        
-    //         });
-    //   }
-
     getByFilter()
     {
-        if(this.f.Project.value=='')
+        if(this.f.Project.value!='')
         {
-            this.f.Project.setValue(" ");
+            this.timesheetObj.IdProject=this.projects.find(p=>p.ProjectName==this.f.Project.value).IdProject;
         }
-        if(this.f.User.value=='')
+        else
         {
-            this.f.User.setValue(" ");
-        }
-        if(this.f.Date.value=='')
-        {
-            this.f.Date.setValue(" ");
+            this.timesheetObj.IdProject=-1;
         }
 
+        if(this.f.User.value!='')
+        {
+            this.timesheetObj.IdUser=this.users.find(p=>p.username==this.f.User.value).idUser;
+        }
+        else
+        {
+            this.timesheetObj.IdUser=-1;
+        }
+
+        if(this.f.Date.value!='')
+        {
+             this.timesheetObj.Date=this.f.Date.value;
+        }
+        else
+        {
+            this.timesheetObj.Date="nullDate";
+        }
+        
+
+        if(this.currentUser.idRole==2)
+        {
+            this.timesheetObj.IdManager=-1;
+            if(this.timesheetObj.IdUser==-1)
+            {
+               this.timesheetObj.IdTeam=this.currentUser.idTeam;
+            }
+        }
+
+        if(this.currentUser.idRole==3)
+        {
+            this.timesheetObj.IdTeam=-1;
+            if(this.timesheetObj.IdProject=-1)
+            {
+                this.timesheetObj.IdManager=this.currentUser.idUser;
+            }
+        }
+
+        if(this.currentUser.idRole==1)
+        {
+            this.timesheetObj.IdTeam=-1;
+            this.timesheetObj.IdManager=-1;
+        }
+        
         //console.log(this.f.User.value,this.f.Project.value,this.f.Date.value);
-        this.timesheetService.getByGeneratedFilter(this.f.User.value,this.f.Project.value,this.f.Date.value).pipe(first()).subscribe(timesheets=>{
+        this.timesheetService.getByGeneratedFilter(this.timesheetObj).pipe(first()).subscribe(timesheets=>{
                     this.timesheets=timesheets;
                     console.log("GET request succesfully done");
                 
@@ -237,73 +156,6 @@ export class ViewPersonalTimesheetsComponent implements OnInit {
 
     onSubmit()
     {
-           
-            // //if there is a projects selected
-            // if(this.f.Project.value && this.f.Date.value && this.f.User.value=='')
-            // {        
-            //     if(this.currentUser.idRole==2)
-            //     {
-            //        this.getByProjectDateTeamLeader();
-            //     }
-            //     if(this.currentUser.idRole==3)
-            //     {
-            //        this.getByProjectDate_Manager();
-            //     }                   
-            // }
-            // else if(this.f.Date.value && this.f.User.value=='' && this.f.Project.value=='')
-            // {   
-            //     if(this.currentUser.idRole==2)
-            //     {
-            //        this.getByDateTeamLeader();
-            //     }
-            //     if(this.currentUser.idRole==3)
-            //     {
-            //         this.getByDate_Manager();
-            //     }         
-            // }
-            // else if(this.f.Project.value && this.f.User.value=='' && this.f.Date.value=='')
-            // {
-            //     if(this.currentUser.idRole==2)
-            //     {
-            //        this.getByProjectTeamLeader();
-            //     }
-            //     if(this.currentUser.idRole==3)
-            //     {
-            //        this.getByProject_Manager();
-            //     }     
-            // }
-            // else if(this.f.User.value && this.f.Project.value=='' && this.f.Date.value=='')
-            // {
-            //     if(this.currentUser.idRole==2)
-            //     {
-            //        this.getByUserTeamLeader();
-            //     }
-            //     if(this.currentUser.idRole==3)
-            //     {
-            //        this.getByUser_Manager();
-            //     }     
-            // }
-            // else if(this.f.User.value && this.f.Date.value && this.f.Project.value=='')
-            // {                  
-            //     if(this.currentUser.idRole==2)
-            //     {
-            //        this.getByUserDateTeamLeader();
-            //     }
-            //     if(this.currentUser.idRole==3)
-            //     {
-            //        this.getByUserDate_Manager();
-            //     }     
-            // }
-            // else if(this.f.User.value && this.f.Project.value && this.f.Date.value=='')
-            // {                  
-            //     this.getByUserProjectTeamLeader();
-            // }
-            // else if(this.f.User.value && this.f.Project.value && this.f.Date.value)
-            // {
-            //     this.getByUserDateProjectTeamLeader();
-            // }
-
-            this.getByFilter();
-                
+       this.getByFilter();                
     }
 }
