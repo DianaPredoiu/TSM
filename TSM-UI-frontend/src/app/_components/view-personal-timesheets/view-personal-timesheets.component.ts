@@ -20,9 +20,10 @@ export class ViewPersonalTimesheetsComponent implements OnInit {
     date:any;
     projects:Project[]=[];
     users:User[]=[];
-    project:number;
-    user:number;
-    timesheetObj:TimesheetObj;
+    // project:number;
+    // user:number;
+    timesheetObj:TimesheetObj=new TimesheetObj();
+    isSelected:boolean=true;
    
 
     constructor(
@@ -40,6 +41,7 @@ export class ViewPersonalTimesheetsComponent implements OnInit {
         this.currentUser = user;
     });
 
+    
    
     }
 
@@ -50,7 +52,6 @@ export class ViewPersonalTimesheetsComponent implements OnInit {
         {
            //gets projects for the current user
             this.getProjectsById();
-
             this.getTeamMembers();
         }
         if(this.currentUser.idRole==3)
@@ -58,12 +59,15 @@ export class ViewPersonalTimesheetsComponent implements OnInit {
             this.getManagerProjects();
             this.getProjectMembers();
         }
+        
         //builds form with validators
-        this.chooseDate = this.formBuilder.group({
-            Date: ['',Validators.required],
-            Project: ['',Validators.required],
-            User:['',Validators.required]        
-        });
+    this.chooseDate = this.formBuilder.group({
+        Date: ['',Validators.required],
+        Project: ['',Validators.required],
+        User:['',Validators.required]        
+    });
+
+        
     }
 
     getProjectsById()
@@ -93,16 +97,17 @@ export class ViewPersonalTimesheetsComponent implements OnInit {
 
     getByFilter()
     {
-        if(this.f.Project.value!='')
+        
+        if(this.f.Project.value!='AllProjects')
         {
-            this.timesheetObj.IdProject=this.projects.find(p=>p.ProjectName==this.f.Project.value).IdProject;
+            this.timesheetObj.IdProject=this.projects.find(p=>p.projectName==this.f.Project.value).idProject;
         }
         else
         {
             this.timesheetObj.IdProject=-1;
         }
 
-        if(this.f.User.value!='')
+        if(this.f.User.value!='AllUsers')
         {
             this.timesheetObj.IdUser=this.users.find(p=>p.username==this.f.User.value).idUser;
         }
@@ -128,6 +133,10 @@ export class ViewPersonalTimesheetsComponent implements OnInit {
             {
                this.timesheetObj.IdTeam=this.currentUser.idTeam;
             }
+            else
+            {
+                this.timesheetObj.IdTeam=-1;
+            }
         }
 
         if(this.currentUser.idRole==3)
@@ -137,6 +146,10 @@ export class ViewPersonalTimesheetsComponent implements OnInit {
             {
                 this.timesheetObj.IdManager=this.currentUser.idUser;
             }
+            else
+            {
+                this.timesheetObj.IdManager=-1;
+            }
         }
 
         if(this.currentUser.idRole==1)
@@ -145,17 +158,21 @@ export class ViewPersonalTimesheetsComponent implements OnInit {
             this.timesheetObj.IdManager=-1;
         }
         
-        //console.log(this.f.User.value,this.f.Project.value,this.f.Date.value);
+        //console.log(this.timesheetObj);
         this.timesheetService.getByGeneratedFilter(this.timesheetObj).pipe(first()).subscribe(timesheets=>{
                     this.timesheets=timesheets;
+                    //console.log(timesheets);
                     console.log("GET request succesfully done");
                 
                     });
+
+                    console.log(this.timesheets);
     }
  
 
     onSubmit()
     {
+       //this.isSelected=false;
        this.getByFilter();                
     }
 }

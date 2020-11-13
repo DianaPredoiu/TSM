@@ -9,6 +9,7 @@
     <div class="form-group">
         <label for="Project">Projects</label>
         <select class="form-control" formControlName="Project">
+            <option [value]="AllProjects" >All Projects</option>
             <option [value]="project.projectName" *ngFor="let project of projects" >{{project.projectName}}</option>
         </select>
     </div>
@@ -16,6 +17,7 @@
     <div class="form-group" *ngIf="currentUser.idRole!=1">
         <label for="User">Users</label>
         <select class="form-control" formControlName="User">
+            <option [value]="AllUsers">All Users</option>
             <option [value]="user.username" *ngFor="let user of users" >{{user.username}}</option>
         </select>
     </div>

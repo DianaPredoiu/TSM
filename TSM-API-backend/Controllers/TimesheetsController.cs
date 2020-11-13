@@ -30,138 +30,7 @@ namespace WebApi
             _appSettings = appSettings.Value;
         }
 
-        //[AllowAnonymous]
-        ////GET TIMESHEET BY DATE FOR TEAM LEADER
-        //[HttpGet("byDateTeamLeader/{idTeam}/{date}")]//ROUTE
-        //public IActionResult GetByDateTeamLeader(int idTeam ,DateTime date)
-        //{
-        //    var timesheet = _timesheetService.GetTimesheetByDateTeamLeader(date, idTeam);
-
-        //    var timesheetDto = _mapper.Map<IList<TimesheetViewDto>>(timesheet);
-        //    return Ok(timesheetDto);   
-        //}
-
-        //[AllowAnonymous]
-        ////GET TIMESHEET BY PROJECT FOR TEAM LEADER
-        //[HttpGet("byProjectTeamLeader/{idTeam}/{IdProject}")]//ROUTE
-        //public IActionResult GetByProjectTeamLeader(int idTeam, int IdProject)
-        //{
-        //    var timesheet = _timesheetService.GetTimesheetByProjectTeamLeader(idTeam, IdProject);
-
-        //    var timesheetDto = _mapper.Map<IList<TimesheetViewDto>>(timesheet);
-        //    return Ok(timesheetDto);
-        //}
-
-        //[AllowAnonymous]
-        ////GET TIMESHEET BY USER FOR TEAM LEADER
-        //[HttpGet("byUserTeamLeader/{IdUser}")]//ROUTE
-        //public IActionResult GetByUserTeamLeader(int IdUser)
-        //{
-        //    var timesheet = _timesheetService.GetTimesheetByUserTeamLeader(IdUser);
-
-        //    var timesheetDto = _mapper.Map<IList<TimesheetViewDto>>(timesheet);
-        //    return Ok(timesheetDto);
-        //}
-
-        //[AllowAnonymous]
-        ////GET TIMESHEET BY USER AND DATE FOR TEAM LEADER
-        //[HttpGet("byUserDateTeamLeader/{IdUser}/{date}")]//ROUTE
-        //public IActionResult GetByUserDateTeamLeader(int IdUser,DateTime date)
-        //{
-        //    var timesheet = _timesheetService.GetTimesheetByUserDateTeamLeader(IdUser,date);
-
-        //    var timesheetDto = _mapper.Map<IList<TimesheetViewDto>>(timesheet);
-        //    return Ok(timesheetDto);
-        //}
-
-        //[AllowAnonymous]
-        ////GET TIMESHEET BY PROJECT AND DATE FOR TEAMLEADER
-        //[HttpGet("byProjectDateTeamLeader/{IdProject}/{IdTeam}/{date}")]//ROUTE
-        //public IActionResult GetByUserDateTeamLeader(int IdProject,int IdTeam, DateTime date)
-        //{
-        //    var timesheet = _timesheetService.GetTimesheetByProjectDateTeamLeader(IdProject,IdTeam,date);
-
-        //    var timesheetDto = _mapper.Map<IList<TimesheetViewDto>>(timesheet);
-        //    return Ok(timesheetDto);
-        //}
-
-        //[AllowAnonymous]
-        ////GET TIMESHEET BY USER AND PROJECT FOR TEAM LEADER AND PROJECT MANAGER
-        //[HttpGet("byProjectUserTeamLeader/{IdProject}/{IdUser}")]//ROUTE
-        //public IActionResult GetByUserDateTeamLeader(int IdProject, int IdUser)
-        //{
-        //    var timesheet = _timesheetService.GetTimesheetByProjectUserTeamLeader(IdProject,IdUser);
-
-        //    var timesheetDto = _mapper.Map<IList<TimesheetViewDto>>(timesheet);
-        //    return Ok(timesheetDto);
-        //}
-
-        //[AllowAnonymous]
-        ////GET TIMESHEET BY USER DATE AND PROJECT FOR TEAM LEADER AND PROJECT MANAGER
-        //[HttpGet("byProjectUserDateTeamLeader/{IdProject}/{IdUser}/{date}")]//ROUTE
-        //public IActionResult GetByUserDateProjectTeamLeader(int IdProject, int IdUser, DateTime date)
-        //{
-        //    var timesheet = _timesheetService.GetTimesheetByProjectUserDateTeamLeader(IdProject, IdUser,date);
-
-        //    var timesheetDto = _mapper.Map<IList<TimesheetViewDto>>(timesheet);
-        //    return Ok(timesheetDto);
-        //}
-
-        //[AllowAnonymous]
-        ////GET TIMESHEET BY PROJECT DATE FOR PROJECT MANAGER
-        //[HttpGet("byProjectDate_ProjectManager/{IdProject}/{date}")]//ROUTE
-        //public IActionResult GetByProjectDate_Manager(int IdProject, DateTime date)
-        //{
-        //    var timesheet = _timesheetService.GetTimesheetByProjectDate_Manager(IdProject, date);
-
-        //    var timesheetDto = _mapper.Map<IList<TimesheetViewDto>>(timesheet);
-        //    return Ok(timesheetDto);
-        //}
-
-        //[AllowAnonymous]
-        ////GET TIMESHEET BY PROJECT FOR PROJECT MANAGER
-        //[HttpGet("byProject_ProjectManager/{IdProject}")]//ROUTE
-        //public IActionResult GetByProject_Manager(int IdProject)
-        //{
-        //    var timesheet = _timesheetService.GetTimesheetByProject_Manager(IdProject);
-
-        //    var timesheetDto = _mapper.Map<IList<TimesheetViewDto>>(timesheet);
-        //    return Ok(timesheetDto);
-        //}
-
-        //[AllowAnonymous]
-        ////GET TIMESHEET BY DATE FOR PROJECT MANAGER
-        //[HttpGet("byDate_ProjectManager/{date}/{IdManager}")]//ROUTE
-        //public IActionResult GetByDate_Manager(DateTime date, int IdManager)
-        //{
-        //    var timesheet = _timesheetService.GetTimesheetByDate_Manager(date,IdManager);
-
-        //    var timesheetDto = _mapper.Map<IList<TimesheetViewDto>>(timesheet);
-        //    return Ok(timesheetDto);
-        //}
-
-        //[AllowAnonymous]
-        ////GET TIMESHEET BY USER FOR PROJECT MANAGER
-        //[HttpGet("byUser_projectManager/{IdManager}/{IdUser}")]//ROUTE
-        //public IActionResult GetByUser_Manager(int IdManager, int IdUser)
-        //{
-        //    var timesheet = _timesheetService.GetTimesheetByUser_Manager(IdUser, IdManager);
-
-        //    var timesheetDto = _mapper.Map<IList<TimesheetViewDto>>(timesheet);
-        //    return Ok(timesheetDto);
-        //}
-
-
-        //[AllowAnonymous]
-        ////GET TIMESHEET BY USER DATE FOR PROJECT MANAGER
-        //[HttpGet("byUserDate_ProjectManager/{IdManager}/{IdUser}/{date}")]//ROUTE
-        //public IActionResult GetByUserDate_Manager(int IdManager, int IdUser,DateTime date)
-        //{
-        //    var timesheet = _timesheetService.GetTimesheetByUserDate_Manager(IdUser, IdManager, date);
-
-        //    var timesheetDto = _mapper.Map<IList<TimesheetViewDto>>(timesheet);
-        //    return Ok(timesheetDto);
-        //}
+       
 
         [AllowAnonymous]
         //GETALL TIMESHEETS
@@ -169,7 +38,7 @@ namespace WebApi
         public IActionResult GetByFilter([FromBody]TimesheetObjDto timesheetObjDto)
         {
             var timesheetObj = _mapper.Map<TimesheetObj>(timesheetObjDto);
-            var timesheet = Filter.GetFilteredTimesheet(timesheetObj);
+            var timesheet = TimesheetFilter.GetFilteredTimesheet(timesheetObj);
             var timesheetDtos = _mapper.Map<IList<TimesheetViewDto>>(timesheet);
 
             return Ok(timesheetDtos);

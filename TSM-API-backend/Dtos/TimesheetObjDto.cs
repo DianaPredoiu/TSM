@@ -7,7 +7,6 @@ namespace WebApi.Dtos
 {
     public class TimesheetObjDto
     {
-
         public int IdProject { get; set; }
 
         public int IdUser { get; set; }

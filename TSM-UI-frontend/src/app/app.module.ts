@@ -12,8 +12,7 @@ import { RegisterComponent } from './_components/register';
 import { ChangePasswordComponent } from './_components/change-password/change-password.component';
 import { AddTimesheetComponent } from './_components/add-timesheet/add-timesheet.component';
 import { ViewPersonalTimesheetsComponent} from './_components/view-personal-timesheets/view-personal-timesheets.component';
-import { ViewProjectMemberTimesheetsComponent } from './_components/view-project-member-timesheets/view-project-member-timesheets.componen';
-import { ViewTeamMemberTimesheetsComponent } from './_components/view-team-member-timesheets/view-team-member-timesheets.component';
+
 
 
 @NgModule({
@@ -31,7 +30,7 @@ import { ViewTeamMemberTimesheetsComponent } from './_components/view-team-membe
         RegisterComponent,
         ChangePasswordComponent,
         AddTimesheetComponent,
-        ViewPersonalTimesheetsComponent,ViewProjectMemberTimesheetsComponent,ViewTeamMemberTimesheetsComponent
+        ViewPersonalTimesheetsComponent
     
     ],
     providers: [

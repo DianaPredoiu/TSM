@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -100,7 +99,37 @@ namespace WebApi.Helpers
 
 
 
+        //public IList<TimesheetView> GetFilteredTimesheet(TimesheetObj timsheetObj)
+        //{
+        //    var timesheets = _context.Timesheets;
+        //    var timesheetActivities = _context.TimesheetActivities;
+        //    var projects = _context.Projects;
+        //    var users = _context.Users;
+        //    var projectManagers = _context.ProjectManagers;
 
+
+        //    var timesheet = from t in timesheetActivities
+        //                    join ts in timesheets on t.IdTimesheet equals ts.IdTimesheet
+        //                    join p in projects on t.IdProject equals p.IdProject
+        //                    join u in users on ts.IdUser equals u.IdUser
+        //                    join pm in projectManagers on t.IdProject equals pm.IdProject
+        //                    select new TimesheetView
+        //                    {
+        //                        Project = p.ProjectName,
+        //                        IdUser = ts.IdUser,
+        //                        Date = ts.Date,
+        //                        WorkedHours = t.WorkedHours,
+        //                        Comments = t.Comments,
+        //                        Username = u.Username,
+        //                        IdTeam = u.IdTeam,
+        //                        IdManager = pm.IdUser,
+        //                        IdProject = p.IdProject,
+        //                    };
+
+
+        //    return timesheet.AsQueryable().Where(GenerateFilter.GenerateTimesheetFilter(timsheetObj)).AsNoTracking().ToList();
+
+        //}
 
 
 
