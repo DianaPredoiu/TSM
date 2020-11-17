@@ -60,15 +60,19 @@ export class ViewPersonalTimesheetsComponent implements OnInit {
             this.getProjectMembers();
         }
         
+        
+
         //builds form with validators
     this.chooseDate = this.formBuilder.group({
         Date: ['',Validators.required],
-        Project: ['',Validators.required],
-        User:['',Validators.required]        
+        Project: ["All Projects",Validators.required],
+        User:[this.currentUser.username,Validators.required]        
     });
 
         
     }
+
+    
 
     getProjectsById()
     {
@@ -98,7 +102,7 @@ export class ViewPersonalTimesheetsComponent implements OnInit {
     getByFilter()
     {
         
-        if(this.f.Project.value!='AllProjects')
+        if(this.f.Project.value!='All Projects')
         {
             this.timesheetObj.IdProject=this.projects.find(p=>p.projectName==this.f.Project.value).idProject;
         }
@@ -107,7 +111,7 @@ export class ViewPersonalTimesheetsComponent implements OnInit {
             this.timesheetObj.IdProject=-1;
         }
 
-        if(this.f.User.value!='AllUsers')
+        if(this.f.User.value!='All Users')
         {
             this.timesheetObj.IdUser=this.users.find(p=>p.username==this.f.User.value).idUser;
         }
@@ -173,6 +177,7 @@ export class ViewPersonalTimesheetsComponent implements OnInit {
     onSubmit()
     {
        //this.isSelected=false;
-       this.getByFilter();                
+       this.getByFilter();
+       
     }
 }

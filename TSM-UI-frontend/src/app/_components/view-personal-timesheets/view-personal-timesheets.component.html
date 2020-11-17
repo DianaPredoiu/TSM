@@ -8,8 +8,8 @@
     </div>
     <div class="form-group">
         <label for="Project">Projects</label>
-        <select class="form-control" formControlName="Project">
-            <option [value]="AllProjects" >All Projects</option>
+        <select class="form-control" formControlName="Project" >
+            <option>All Projects</option>
             <option [value]="project.projectName" *ngFor="let project of projects" >{{project.projectName}}</option>
         </select>
     </div>
@@ -17,7 +17,7 @@
     <div class="form-group" *ngIf="currentUser.idRole!=1">
         <label for="User">Users</label>
         <select class="form-control" formControlName="User">
-            <option [value]="AllUsers">All Users</option>
+            <option>All Users</option>
             <option [value]="user.username" *ngFor="let user of users" >{{user.username}}</option>
         </select>
     </div>
@@ -30,7 +30,7 @@
 <h3 align="center">Timesheet activity:</h3>
 <br>
 
-    <table  align="center"  class="table">
+    <table *ngIf="timesheets.length!=0" align="center"  class="table">
         <thead>
             <tr>
                 <th scope="col">Date</th>
@@ -50,6 +50,8 @@
             </tr>
         </tbody> 
       </table>
+
+      <div *ngIf="timesheets.length==0" align="center">There are no timesheets found</div>
 
 
            
