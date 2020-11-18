@@ -6,22 +6,37 @@
  * 
  ********************************************************************************/
 
+/*********************************************************************************
+ * ProjectsController.cs file contains the ProjectsController class, which is 
+ * included in Controllers namespace.
+ * 
+ ********************************************************************************/
+
+//list of namespaces used in ProjectsController class
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WebApi.Dtos;
 using WebApi.Helpers;
+//list of namespaces
 
 namespace WebApi.Controllers
 {
     [Authorize]
     [ApiController]
     [Route("[controller]")]//MAIN ROUTE
+
+    /*******************************************************
+     * 
+     * \class
+     * 
+     * ProjectsController class contains all the methods
+     * that contain http requests and dto mapping for Projects 
+     * related data.
+     * 
+     ******************************************************/
     public class ProjectsController:ControllerBase
     {
         //ATTRIBUTES
@@ -29,7 +44,12 @@ namespace WebApi.Controllers
         private IMapper _mapper;
         private readonly AppSettings _appSettings;
 
-        //CONSTRUCTOR
+        /*************************************************************
+         * 
+         * ProjectsController Constructor injects 
+         * ProjectService,the Mapper class and AppSettings class.
+         * 
+         ************************************************************/
         public ProjectsController(
             IProjectService projectService,
             IMapper mapper,
@@ -53,6 +73,16 @@ namespace WebApi.Controllers
         [AllowAnonymous]
         //GETALL PROJECTS
         [HttpGet("getByUserId/{id}")]
+
+        /***********************************************************************************
+        * 
+        * GetAll method:
+        *     + Return type: IActionResult.
+        *     + @param id: first argument,type int-represents the UserId.
+        *     + It is used to get all the projects that a user works on.
+        *     + HttpGet request.
+        * 
+        ***********************************************************************************/
         public IActionResult GetAll(int id)
         {
             var projects = _projectService.GetById(id);

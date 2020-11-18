@@ -6,31 +6,50 @@
  * 
  ********************************************************************************/
 
+/*********************************************************************************
+ * LocationController.cs file contains the LocationController class, which is 
+ * included in Controllers namespace.
+ * 
+ ********************************************************************************/
+
+
+//list of namespaces used in LocationController class
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WebApi.Dtos;
 using WebApi.Helpers;
 using WebApi.Services;
+//list of namespaces
 
 namespace WebApi.Controllers
 {
     [Authorize]
     [ApiController]
     [Route("[controller]")]//MAIN ROUTE
+
+    /*******************************************************
+     * 
+     * \class
+     * 
+     * LocationController class contains all the methods
+     * that contain http requests and dto mapping.
+     * 
+     ******************************************************/
     public class ProjectManagerController : ControllerBase
     {
-        //ATTRIBUTES
         private IProjectManagerService _projectManagerService;
         private IMapper _mapper;
         private readonly AppSettings _appSettings;
 
-        //CONSTRUCTOR
+        /*************************************************************
+         * 
+         * ProjectManagerController Constructor injects 
+         * ProjectManagerService,the Mapper class and AppSettings class.
+         * 
+         ************************************************************/
         public ProjectManagerController(
             IProjectManagerService projectManagerService,
             IMapper mapper,
@@ -42,8 +61,16 @@ namespace WebApi.Controllers
         }
 
         [AllowAnonymous]
-        //GETALL PROJECTS
         [HttpGet("getProjectsByProjectManagerId/{id}")]
+        /***********************************************************************************
+         * 
+         * GetAllProjectsByManagerId method:
+         *     + Return type: IActionResult.
+         *     + @param id: first argument,type int-represents the UserId of the Manager.
+         *     + It is used to get all the projects that register under a specified manager.
+         *     + HttpGet request.
+         * 
+         ***********************************************************************************/
         public IActionResult GetAllProjectsByManagerId(int id)
         {
             var projects = _projectManagerService.GetProjectsByManagerId(id);
