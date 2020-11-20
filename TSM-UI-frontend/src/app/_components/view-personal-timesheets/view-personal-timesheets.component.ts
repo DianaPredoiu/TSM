@@ -5,7 +5,7 @@ import { User, Project } from "@/_models";
 import { Subscription } from "rxjs";
 import { first } from "rxjs/operators";
 import { TimesheetView } from "@/_models/timesheet-view";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute,Router } from "@angular/router";
 import { TimesheetObj } from "@/_models/timesheet-obj";
 
 @Component({ templateUrl: 'view-personal-timesheets.component.html',styleUrls: ['table-style.css']})
@@ -32,7 +32,7 @@ export class ViewPersonalTimesheetsComponent implements OnInit {
         private projectService:ProjectAssignmentsService,
         private timesheetService:TimesheetService,
         private formBuilder: FormBuilder,
-        private route: ActivatedRoute,
+        private router: Router,
         private userService:UserService,
         private projServ:ProjectService
 
@@ -167,10 +167,10 @@ export class ViewPersonalTimesheetsComponent implements OnInit {
                     this.timesheets=timesheets;
                     //console.log(timesheets);
                     console.log("GET request succesfully done");
-                
+                    console.log(this.timesheets);
                     });
 
-                    console.log(this.timesheets);
+                    
     }
  
 
@@ -178,6 +178,15 @@ export class ViewPersonalTimesheetsComponent implements OnInit {
     {
        //this.isSelected=false;
        this.getByFilter();
+
+       console.log(this.timesheets);
        
+    }
+
+    editActivity(timesheet:TimesheetView)
+    {
+        timesheet=new TimesheetView();
+        this.timesheetService.data = timesheet;
+        this.router.navigate(['/addTimesheet']);
     }
 }

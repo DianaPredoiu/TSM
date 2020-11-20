@@ -1,10 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators, FormArray} from '@angular/forms';
 import { AuthenticationService,LocationService,TimesheetActivityService,AlertService, TimesheetService ,ProjectAssignmentsService} from "@/_services";
-import { User, Timesheet, TimesheetActivity, Project,Location} from "@/_models";
+import { User, Timesheet, TimesheetActivity, Project,Location, TimesheetView} from "@/_models";
 import { Subscription } from "rxjs";
 import { first } from "rxjs/operators";
 import { Converter } from "@/_helpers/converter";
+import { TimesheetActivityView } from "@/_models/timesheet-activity-view";
 
 @Component({ templateUrl: 'add-timesheet.component.html' ,styleUrls: ['add-timesheet-style.css']})
 
@@ -36,6 +37,8 @@ export class AddTimesheetComponent implements OnInit {
 
     //moments.js
     moment = require('moment');
+
+    data:TimesheetView=new TimesheetView();
       
     constructor(
         private formBuilder: FormBuilder,
@@ -55,16 +58,49 @@ export class AddTimesheetComponent implements OnInit {
 
     ngOnInit()
     {
-        //init form with validators
-        this.addTimesheetForm = this.formBuilder.group({
-            Date: ['',Validators.required],
-            StartTime: ['', Validators.required],
-            EndTime: ['', Validators.required],
-            Break: ['', Validators.required],           
-            Location:['', Validators.required],
+        this.data= this.timesheetService.data;
+        this.timesheetService.data=new TimesheetView();
+
+        console.log(this.data);
+
+        if(this.data!=undefined)
+        {
+           //init form with validators
+            this.addTimesheetForm = this.formBuilder.group({
+            Date: [this.data.Date,Validators.required],
+            StartTime: [this.data.StartTime, Validators.required],
+            EndTime: [this.data.EndTime, Validators.required],
+            Break: [this.data.BreakTime, Validators.required],           
+            Location:[this.data.Location, Validators.required],
             TotalWorkedHours:['0 hours 0 minutes'],
             timesheetActivities:this.formBuilder.array([],[Validators.required])   
          });
+
+         for(let d of this.data.TimesheetActivities)
+         {
+              //init form with validators      
+             this.timesheetActivities.push(this.formBuilder.group({
+             WorkedHours:this.formBuilder.control(d.WorkedHours,[Validators.required]),
+             Project:this.formBuilder.control(d.ProjectName,[Validators.required]),
+             Comments:this.formBuilder.control(d.Comments),
+              }));
+         }
+
+        }
+        else
+        {
+            //init form with validators
+            this.addTimesheetForm = this.formBuilder.group({
+                Date: ['',Validators.required],
+                StartTime: ['', Validators.required],
+                EndTime: ['', Validators.required],
+                Break: ['', Validators.required],           
+                Location:['', Validators.required],
+                TotalWorkedHours:['0 hours 0 minutes'],
+                timesheetActivities:this.formBuilder.array([],[Validators.required])   });
+        }
+
+        
 
         //getting all projects and locations
         this.getAllProjects();
@@ -198,12 +234,13 @@ export class AddTimesheetComponent implements OnInit {
      //generate new activity form btn
      btnAddActivity()
      {      
-         //init form with validators      
-         this.timesheetActivities.push(this.formBuilder.group({
-             WorkedHours:this.formBuilder.control('',[Validators.required]),
-             Project:this.formBuilder.control('',[Validators.required]),
-             Comments:this.formBuilder.control(''),
-         }));
+           
+        //init form with validators      
+        this.timesheetActivities.push(this.formBuilder.group({
+                WorkedHours:this.formBuilder.control('',[Validators.required]),
+                Project:this.formBuilder.control('',[Validators.required]),
+                Comments:this.formBuilder.control(''),
+            }));        
          
      }
  

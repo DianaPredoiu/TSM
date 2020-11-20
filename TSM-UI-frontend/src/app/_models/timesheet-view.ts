@@ -1,13 +1,16 @@
+import { TimesheetActivityView } from "./timesheet-activity-view";
+
 export class TimesheetView
 {
+     IdTimesheet:number;
      Date:Date;
      StartTime :Date;
      EndTime:Date;
      BreakTime:Date;
      Location:string;
-     Project:string;
-     WorkedHours:number;
-     Comments:string;
+     IdLocation:number;
      IdUser:number;
      Username:string;
+     TimesheetActivities:TimesheetActivityView[]=[];
+    
 }

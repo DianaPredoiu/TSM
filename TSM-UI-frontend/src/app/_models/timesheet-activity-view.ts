@@ -1,12 +1,10 @@
 export class TimesheetActivityView
 {
-    IdLocation:number;
-    IdUser:number;
+    IdTimesheetActivity:number;
+    IdTimesheet:number;
     IdProject:number;
+    ProjectName:string;
     Comments:string;
-    Date:string;
-    StartTime:string;
-    EndTime:string; 
-    BreakTime:string; 
+    WorkedHours:string;
 }
 

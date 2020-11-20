@@ -11,6 +11,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using WebApi.Helpers;
 //list of namespaces
 
@@ -28,6 +29,7 @@ namespace WebApi.Entities
      ******************************************************/
     public class TimesheetView
     {
+        [Key]
         public int IdTimesheet { get; set; } //!< The Timesheet id
 
         [JsonConverter(typeof(JsonDateConverter))]
@@ -50,7 +52,6 @@ namespace WebApi.Entities
         public string Username { get; set; }  //!< The username
 
         public List<TimesheetActivityView> TimesheetActivities { get; set; } //!<List of TimesheetActivities
-
 
     }//CLASS TimesheetView
 

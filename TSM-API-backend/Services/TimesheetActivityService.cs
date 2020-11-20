@@ -12,6 +12,8 @@ namespace WebApi.Services
     {
         TimesheetActivity Create(TimesheetActivity timesheetActivity);
 
+        void Update(TimesheetActivity timesheetActivity);
+
     }//INTERFACE IUserService
     public class TimesheetActivityService: ITimesheetActivityService
     {
@@ -29,6 +31,13 @@ namespace WebApi.Services
             _context.SaveChanges();
 
             return timesheetActivity;
+        }
+
+        public void Update(TimesheetActivity timesheetActivity)
+        {
+            _context.TimesheetActivities.Update(timesheetActivity);
+            _context.SaveChanges();
+
         }
     }
 }

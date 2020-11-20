@@ -1,9 +1,11 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebApi.Entities
 {
     public class TimesheetActivityView
-    {       
+    {      
+        [Key]
         public int IdTimesheetActivity { get; set; }  //!< The id of the timesheet activity
       
         public int IdTimesheet { get; set; }  //!< The timesheet a user worked on (id of the timesheet)

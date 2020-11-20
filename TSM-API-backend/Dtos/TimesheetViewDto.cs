@@ -51,7 +51,7 @@ namespace WebApi.Dtos
 
         public string Username { get; set; }  //!< The username
 
-        public List<TimesheetActivityView> TimesheetActivities { get; set; } //!<List of TimesheetActivities
+        public List<TimesheetActivityViewDto> TimesheetActivities { get; set; } //!<List of TimesheetActivities
 
     }//CLASS TimesheetViewDto
 

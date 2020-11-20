@@ -19,4 +19,6 @@ export class TimesheetService {
         return this.http.post<TimesheetView[]>(`${config.apiUrl}/timesheets/filter`,timesheetObj);
     }
 
+    data:TimesheetView=new TimesheetView();
+
 }

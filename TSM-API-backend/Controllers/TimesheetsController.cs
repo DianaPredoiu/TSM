@@ -38,10 +38,9 @@ namespace WebApi
         public IActionResult GetByFilter([FromBody]TimesheetObjDto timesheetObjDto)
         {
             var timesheetObj = _mapper.Map<TimesheetObj>(timesheetObjDto);
-            var timesheet = TimesheetFilter.GetFilteredTimesheet(timesheetObj);
-            var timesheetDtos = _mapper.Map<IList<TimesheetViewDto>>(timesheet);
+            var timesheet = TimesheetFilter.GetFilteredTimesheet(timesheetObj);           
 
-            return Ok(timesheetDtos);
+            return Ok(timesheet);
         }
 
         [AllowAnonymous]
