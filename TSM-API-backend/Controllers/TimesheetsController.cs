@@ -76,15 +76,15 @@ namespace WebApi
             }
         }
 
-        [AllowAnonymous]
-        //GET TIMESHEET BY USER DATE FOR PROJECT MANAGER
-        [HttpGet("byDate/{date}/{IdUser}")]//ROUTE
-        public IActionResult GetByDate(int IdUser, System.DateTime date)
-        {
-            var timesheet = _timesheetService.GetTimesheetByDate(date,IdUser);
+        //[AllowAnonymous]
+        ////GET TIMESHEET BY USER DATE FOR PROJECT MANAGER
+        //[HttpGet("byDate/{date}/{IdUser}")]//ROUTE
+        //public IActionResult GetByDate(int IdUser, System.DateTime date)
+        //{
+        //    var timesheet = _timesheetService.GetTimesheetByDate(date,IdUser);
 
-            var timesheetDto = _mapper.Map<TimsheetUpdateDto>(timesheet);
-            return Ok(timesheetDto);
-        }
+        //    var timesheetDto = _mapper.Map<TimsheetUpdateDto>(timesheet);
+        //    return Ok(timesheetDto);
+        //}
     }
 }

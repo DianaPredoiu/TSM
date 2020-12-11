@@ -2,11 +2,14 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService, ProjectService,LocationService,TimesheetService,TimesheetActivityService,AlertService,ProjectAssignmentsService, UserService } from "@/_services";
 import { User, Project } from "@/_models";
-import { Subscription } from "rxjs";
-import { first } from "rxjs/operators";
+import { Observable, Subject, Subscription } from "rxjs";
+import { first, map, share, tap } from "rxjs/operators";
 import { TimesheetView } from "@/_models/timesheet-view";
 import { ActivatedRoute,Router } from "@angular/router";
 import { TimesheetObj } from "@/_models/timesheet-obj";
+import { htmlAstToRender3Ast } from "@angular/compiler/src/render3/r3_template_transform";
+import { HttpClient } from "@angular/common/http";
+import { resolve } from "url";
 
 @Component({ templateUrl: 'view-personal-timesheets.component.html',styleUrls: ['table-style.css']})
 
@@ -14,7 +17,7 @@ export class ViewPersonalTimesheetsComponent implements OnInit {
 
     currentUser: User;
     currentUserSubscription: Subscription;
-    timesheets:TimesheetView[]=[];
+    timesheets:TimesheetView[]=new Array<TimesheetView>();
     chooseDate:FormGroup;
     sub:Subscription;
     date:any;
@@ -23,8 +26,11 @@ export class ViewPersonalTimesheetsComponent implements OnInit {
     // project:number;
     // user:number;
     timesheetObj:TimesheetObj=new TimesheetObj();
-    isSelected:boolean=true;
-   
+    expanded: boolean=false;
+    //data:TimesheetView[]=[];
+    timesheetsSubscription:Subscription;
+    ts:TimesheetView[]=new Array<TimesheetView>();
+    
 
     constructor(
        
@@ -34,7 +40,8 @@ export class ViewPersonalTimesheetsComponent implements OnInit {
         private formBuilder: FormBuilder,
         private router: Router,
         private userService:UserService,
-        private projServ:ProjectService
+        private projServ:ProjectService,
+        private http: HttpClient
 
     )
     {this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
@@ -72,7 +79,17 @@ export class ViewPersonalTimesheetsComponent implements OnInit {
         
     }
 
-    
+    // onClick(i:number)
+    // {
+    //     this.isCollapsed=false;
+    //     for(let j=0;j<=this.timesheets.length;j++)
+    //     {
+    //         if(j==i)
+    //         {
+    //             this.isCollapsed=true;
+    //         }
+    //     }
+    // }
 
     getProjectsById()
     {
@@ -162,15 +179,29 @@ export class ViewPersonalTimesheetsComponent implements OnInit {
             this.timesheetObj.IdManager=-1;
         }
         
+        //const result: Subject<Array<TimesheetView>> = new Subject<Array<TimesheetView>>();
+   
         //console.log(this.timesheetObj);
-        this.timesheetService.getByGeneratedFilter(this.timesheetObj).pipe(first()).subscribe(timesheets=>{
-                    this.timesheets=timesheets;
-                    //console.log(timesheets);
-                    console.log("GET request succesfully done");
-                    console.log(this.timesheets);
-                    });
+        // this.timesheetService.getByGeneratedFilter(this.timesheetObj).subscribe(timesheets=>{
+        //    this.timesheets=timesheets;
+          
+        // });
+        let promise=new Promise((resolve,reject)=>{
+            this.timesheetService.getByGeneratedFilter(this.timesheetObj).subscribe(data=>
+                this.timesheets=data);
 
-                    
+                if(this.timesheets!=[])
+                {
+                   resolve("success");
+                }
+                else
+                {
+                    reject("error");
+                }
+        });
+
+        promise.then((message)=>console.log(message));
+                  
     }
  
 
@@ -179,14 +210,18 @@ export class ViewPersonalTimesheetsComponent implements OnInit {
        //this.isSelected=false;
        this.getByFilter();
 
+       
+
        console.log(this.timesheets);
        
     }
 
-    editActivity(timesheet:TimesheetView)
-    {
-        timesheet=new TimesheetView();
-        this.timesheetService.data = timesheet;
-        this.router.navigate(['/addTimesheet']);
-    }
+    // editActivity(timesheet:TimesheetView)
+    // {
+    //     timesheet=new TimesheetView();
+    //     this.timesheetService.data = timesheet;
+    //     this.router.navigate(['/addTimesheet']);
+    // }
+
+    
 }

@@ -24,9 +24,11 @@
         "bulma": "^0.8.2",
         "core-js": "^2.5.7",
         "igniteui-angular": "^9.0.11",
+        "jquery": "^3.5.1",
         "moment": "^2.27.0",
         "ng-sidebar": "^9.2.1",
         "rxjs": "^6.3.3",
+        "save": "^2.4.0",
         "timespan": "^2.3.0",
         "zone.js": "^0.8.26"
     },

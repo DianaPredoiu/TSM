@@ -46,7 +46,6 @@ namespace WebApi
     public class Startup
     {
         
-
         /*******************************************************
          * 
          * Startup Constructor takes an IConfiguration type

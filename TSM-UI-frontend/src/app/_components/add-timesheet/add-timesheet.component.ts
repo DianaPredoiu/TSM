@@ -58,7 +58,7 @@ export class AddTimesheetComponent implements OnInit {
 
     ngOnInit()
     {
-        this.data= this.timesheetService.data;
+         this.data= this.timesheetService.data;
         this.timesheetService.data=new TimesheetView();
 
         console.log(this.data);

@@ -12,5 +12,21 @@ export class TimesheetView
      IdUser:number;
      Username:string;
      TimesheetActivities:TimesheetActivityView[]=[];
+
+     
+     // constructor(
+     //      public idTimesheet: number,
+     //      public date: Date,
+     //      public startTime: Date,
+     //      public endTime: Date,
+     //      public breakTime:Date,
+     //      public location:string,
+     //      public idLocation:number,
+     //      public idUser:number,
+     //      public username:string,
+     //      public timesheetActivities:TimesheetActivityView[]
+     //    ) { }
+
+       
     
 }
