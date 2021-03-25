@@ -8,15 +8,17 @@
     </div>
     <div class="form-group">
         <label for="Project">Projects</label>
-        <select class="form-control" formControlName="Project">
-            <option [value]="project.idProject" *ngFor="let project of projects" >{{project.projectName}}</option>
+        <select class="form-control" formControlName="Project" >
+            <option>All Projects</option>
+            <option [value]="project.projectName" *ngFor="let project of projects" >{{project.projectName}}</option>
         </select>
     </div>
 
     <div class="form-group" *ngIf="currentUser.idRole!=1">
         <label for="User">Users</label>
         <select class="form-control" formControlName="User">
-            <option [value]="user.idUser" *ngFor="let user of users" >{{user.username}}</option>
+            <option>All Users</option>
+            <option [value]="user.username" *ngFor="let user of users" >{{user.username}}</option>
         </select>
     </div>
     
@@ -28,27 +30,53 @@
 <h3 align="center">Timesheet activity:</h3>
 <br>
 
-    <table  align="center"  class="table">
+    <table *ngIf="timesheets.length!=0" align="center"  class="table">
         <thead>
             <tr>
                 <th scope="col">Date</th>
-                <th scope="col">Project</th>
-                <th scope="col">Users</th>       
-                <th scope="col">Worked Hours</th>
-                <th scope="col">Comments</th>
+                <th scope="col">StartTime</th>
+                <th scope="col">EndTime</th>       
+                <th scope="col">BreakTime</th>
+                <th scope="col">Username</th>
+                <th scope="col">Location</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let timesheet of timesheets">
-                <td>{{timesheet.date}}</td>
-                <td>{{timesheet.project}}</td>
-                <td>{{timesheet.username}}</td>
-                <td>{{timesheet.workedHours}}</td>
-                <td>{{timesheet.comments}}</td>
+                    <td>{{timesheet.date}}</td>
+                    <td>{{timesheet.startTime}}</td>
+                    <td>{{timesheet.endTime}}</td>
+                    <td>{{timesheet.breakTime}}</td>
+                    <td>{{timesheet.username}}</td>
+                    <td>{{timesheet.location}}</td>  
             </tr>
+            <!-- <tr>
+                <td colspan="6"> 
+                    <table  class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">ProjectName</th>
+                                <th scope="col">Comments</th>
+                                <th scope="col">WorkedHours</th>       
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let timesheetActivity of timesheet.TimesheetActivities" >                   
+                                    <td>{{timesheet.ProjectName}}</td>
+                                    <td>{{timesheet.Comments}}</td>
+                                    <td>{{timesheet.WorkedHours}}</td>
+                            </tr>
+                        </tbody> 
+                    </table>
+                </td>
+            </tr>-->           
         </tbody> 
       </table>
 
+      
 
-           
-       
+      <div *ngIf="timesheets.length==0" align="center">There are no timesheets found</div>
+
+     
+
+      

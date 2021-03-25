@@ -1,20 +1,43 @@
-﻿using AutoMapper;
+﻿/*********************************************************************************
+ * \file 
+ * 
+ * UserService.cs file contains the UserService class, which is included in 
+ * Services namespace.
+ * 
+ ********************************************************************************/
+
+/*********************************************************************************
+ * RolesController.cs file contains the RolesController class, which is 
+ * included in Controllers namespace.
+ * 
+ ********************************************************************************/
+
+//list of namespaces used in RolesController class
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WebApi.Dtos;
 using WebApi.Helpers;
 using WebApi.Services;
+//list of namespaces
 
 namespace WebApi.Controllers
 {
     [Authorize]
     [ApiController]
     [Route("[controller]")]//MAIN ROUTE
+
+    /*******************************************************
+     * 
+     * \class
+     * 
+     * RolesController class contains all the methods
+     * that contain http requests and dto mapping for Roles 
+     * related data.
+     * 
+     ******************************************************/
     public class RolesController : ControllerBase
     {
         //ATTRIBUTES
@@ -22,7 +45,12 @@ namespace WebApi.Controllers
         private IMapper _mapper;
         private readonly AppSettings _appSettings;
 
-        //CONSTRUCTOR
+        /*************************************************************
+          * 
+          * RolesController Constructor injects 
+          * RolesService,the Mapper class and AppSettings class.
+          * 
+          ************************************************************/
         public RolesController(
             IRoleService roleService,
             IMapper mapper,
@@ -36,6 +64,15 @@ namespace WebApi.Controllers
         [AllowAnonymous]
         //GETALL USERS
         [HttpGet]
+
+        /***********************************************************************************
+        * 
+        * GetAll method:
+        *     + Return type: IActionResult.
+        *     + It is used to get all the roles that are regitered in the Roles table.
+        *     + HttpGet request.
+        * 
+        ***********************************************************************************/
         public IActionResult GetAll()
         {
             var roles = _roleService.GetAll();

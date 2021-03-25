@@ -1,7 +1,7 @@
 export class Project{
     
-    IdProject:number;
-    ProjectName:string;
+    idProject:number;
+    projectName:string;
     StartDate:string;
     EndDate:string;
     IsActive:boolean;

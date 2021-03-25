@@ -1,28 +1,56 @@
-﻿using AutoMapper;
+﻿/*********************************************************************************
+ * \file 
+ * 
+ * UserService.cs file contains the UserService class, which is included in 
+ * Services namespace.
+ * 
+ ********************************************************************************/
+
+/*********************************************************************************
+ * LocationController.cs file contains the LocationController class, which is 
+ * included in Controllers namespace.
+ * 
+ ********************************************************************************/
+
+//list of namespaces used in LocationController class
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WebApi.Dtos;
 using WebApi.Helpers;
 using WebApi.Services;
+//list of namespaces
 
 namespace WebApi.Controllers
 {
+    //attributes
     [Authorize]
     [ApiController]
     [Route("[controller]")]//MAIN ROUTE
+
+    /*******************************************************
+     * 
+     * \class
+     * 
+     * LocationController class contains all the methods
+     * that contain http requests and dto mapping.
+     * 
+     ******************************************************/
     public class LocationController : ControllerBase
     {
-        //ATTRIBUTES
+        
         private ILocationService _locationService;
         private IMapper _mapper;
         private readonly AppSettings _appSettings;
 
-        //CONSTRUCTOR
+        /*************************************************************
+         * 
+         * LocationController Constructor injects LocationService,
+         * the Mapper class and AppSettings class.
+         * 
+         ************************************************************/
         public LocationController(
             ILocationService locationService,
             IMapper mapper,
@@ -33,8 +61,16 @@ namespace WebApi.Controllers
             _appSettings = appSettings.Value;
         }
 
+
+        /***********************************************************************************
+         * 
+         * GetAll method:
+         *     + Return type: IActionResult.
+         *     + It is used to get all the locations registered in the Location Table.
+         *     + HttpGet request.
+         * 
+         ***********************************************************************************/
         [AllowAnonymous]
-        //GETALL PROJECTS
         [HttpGet]
         public IActionResult GetAll()
         {

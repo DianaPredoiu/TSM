@@ -2,12 +2,14 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService, ProjectService,LocationService,TimesheetService,TimesheetActivityService,AlertService,ProjectAssignmentsService, UserService } from "@/_services";
 import { User, Project } from "@/_models";
-import { Subscription } from "rxjs";
-import { first } from "rxjs/operators";
+import { Observable, Subject, Subscription } from "rxjs";
+import { first, map, share, tap } from "rxjs/operators";
 import { TimesheetView } from "@/_models/timesheet-view";
-import { ActivatedRoute } from "@angular/router";
-import { IfStmt } from "@angular/compiler";
-import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
+import { ActivatedRoute,Router } from "@angular/router";
+import { TimesheetObj } from "@/_models/timesheet-obj";
+import { htmlAstToRender3Ast } from "@angular/compiler/src/render3/r3_template_transform";
+import { HttpClient } from "@angular/common/http";
+import { resolve } from "url";
 
 @Component({ templateUrl: 'view-personal-timesheets.component.html',styleUrls: ['table-style.css']})
 
@@ -15,15 +17,20 @@ export class ViewPersonalTimesheetsComponent implements OnInit {
 
     currentUser: User;
     currentUserSubscription: Subscription;
-    timesheets:TimesheetView[]=[];
+    timesheets:TimesheetView[]=new Array<TimesheetView>();
     chooseDate:FormGroup;
     sub:Subscription;
     date:any;
     projects:Project[]=[];
     users:User[]=[];
-    project:number;
-    user:number;
-   
+    // project:number;
+    // user:number;
+    timesheetObj:TimesheetObj=new TimesheetObj();
+    expanded: boolean=false;
+    //data:TimesheetView[]=[];
+    timesheetsSubscription:Subscription;
+    ts:TimesheetView[]=new Array<TimesheetView>();
+    
 
     constructor(
        
@@ -31,15 +38,17 @@ export class ViewPersonalTimesheetsComponent implements OnInit {
         private projectService:ProjectAssignmentsService,
         private timesheetService:TimesheetService,
         private formBuilder: FormBuilder,
-        private route: ActivatedRoute,
+        private router: Router,
         private userService:UserService,
-        private projServ:ProjectService
+        private projServ:ProjectService,
+        private http: HttpClient
 
     )
     {this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
         this.currentUser = user;
     });
 
+    
    
     }
 
@@ -50,7 +59,6 @@ export class ViewPersonalTimesheetsComponent implements OnInit {
         {
            //gets projects for the current user
             this.getProjectsById();
-
             this.getTeamMembers();
         }
         if(this.currentUser.idRole==3)
@@ -58,13 +66,30 @@ export class ViewPersonalTimesheetsComponent implements OnInit {
             this.getManagerProjects();
             this.getProjectMembers();
         }
+        
+        
+
         //builds form with validators
-        this.chooseDate = this.formBuilder.group({
-            Date: ['',Validators.required],
-            Project: ['',Validators.required],
-            User:['',Validators.required]        
-        });
+    this.chooseDate = this.formBuilder.group({
+        Date: ['',Validators.required],
+        Project: ["All Projects",Validators.required],
+        User:[this.currentUser.username,Validators.required]        
+    });
+
+        
     }
+
+    // onClick(i:number)
+    // {
+    //     this.isCollapsed=false;
+    //     for(let j=0;j<=this.timesheets.length;j++)
+    //     {
+    //         if(j==i)
+    //         {
+    //             this.isCollapsed=true;
+    //         }
+    //     }
+    // }
 
     getProjectsById()
     {
@@ -91,193 +116,112 @@ export class ViewPersonalTimesheetsComponent implements OnInit {
     get f() { return this.chooseDate.controls; }
 
 
-    //gets activities by project and date
-    getByProjectDateTeamLeader()
-    {        
-            this.timesheetService.getByProjectDateTeamLeader(this.currentUser.idTeam,this.f.Project.value,this.f.Date.value).pipe(first()).subscribe(timesheets=>{
-                this.timesheets=timesheets;
-                 console.log("GET request succesfully done");
-               
-                });
+    getByFilter()
+    {
+        
+        if(this.f.Project.value!='All Projects')
+        {
+            this.timesheetObj.IdProject=this.projects.find(p=>p.projectName==this.f.Project.value).idProject;
+        }
+        else
+        {
+            this.timesheetObj.IdProject=-1;
+        }
+
+        if(this.f.User.value!='All Users')
+        {
+            this.timesheetObj.IdUser=this.users.find(p=>p.username==this.f.User.value).idUser;
+        }
+        else
+        {
+            this.timesheetObj.IdUser=-1;
+        }
+
+        if(this.f.Date.value!='')
+        {
+             this.timesheetObj.Date=this.f.Date.value;
+        }
+        else
+        {
+            this.timesheetObj.Date="nullDate";
+        }
+        
+
+        if(this.currentUser.idRole==2)
+        {
+            this.timesheetObj.IdManager=-1;
+            if(this.timesheetObj.IdUser==-1)
+            {
+               this.timesheetObj.IdTeam=this.currentUser.idTeam;
+            }
+            else
+            {
+                this.timesheetObj.IdTeam=-1;
+            }
+        }
+
+        if(this.currentUser.idRole==3)
+        {
+            this.timesheetObj.IdTeam=-1;
+            if(this.timesheetObj.IdProject=-1)
+            {
+                this.timesheetObj.IdManager=this.currentUser.idUser;
+            }
+            else
+            {
+                this.timesheetObj.IdManager=-1;
+            }
+        }
+
+        if(this.currentUser.idRole==1)
+        {
+            this.timesheetObj.IdTeam=-1;
+            this.timesheetObj.IdManager=-1;
+        }
+        
+        //const result: Subject<Array<TimesheetView>> = new Subject<Array<TimesheetView>>();
+   
+        //console.log(this.timesheetObj);
+        // this.timesheetService.getByGeneratedFilter(this.timesheetObj).subscribe(timesheets=>{
+        //    this.timesheets=timesheets;
+          
+        // });
+        let promise=new Promise((resolve,reject)=>{
+            this.timesheetService.getByGeneratedFilter(this.timesheetObj).subscribe(data=>
+                this.timesheets=data);
+
+                if(this.timesheets!=[])
+                {
+                   resolve("success");
+                }
+                else
+                {
+                    reject("error");
+                }
+        });
+
+        promise.then((message)=>console.log(message));
                   
     }
-
-    //gets activities by date 
-    getByDateTeamLeader()
-    {
-       
-        this.timesheetService.getByDateTeamLeader(this.currentUser.idTeam,this.f.Date.value).pipe(first()).subscribe(timesheets=>{
-            this.timesheets=timesheets;
-            console.log("GET request succesfully done");
-        
-            });
-    }
-
-    //gets activities by project
-    getByProjectTeamLeader()
-    {
-        this.timesheetService.getByProjectTeamLeader(this.currentUser.idTeam,this.f.Project.value).pipe(first()).subscribe(timesheets=>{
-            this.timesheets=timesheets;
-            console.log("GET request succesfully done");
-        
-            });
-    }
-
-    //gets activities by user
-    getByUserTeamLeader()
-    {
-        this.timesheetService.getByUserTeamLeader(this.f.User.value).pipe(first()).subscribe(timesheets=>{
-            this.timesheets=timesheets;
-            console.log("GET request succesfully done");
-        
-            });
-    }
-
-     //gets activities by user and date
-     getByUserDateTeamLeader()
-     {
-         this.timesheetService.getByUserDateTeamLeader(this.f.User.value,this.f.Date.value).pipe(first()).subscribe(timesheets=>{
-             this.timesheets=timesheets;
-             console.log("GET request succesfully done");
-         
-             });
-     }
-
-      //gets activities by user and project
-      getByUserProjectTeamLeader()
-      {
-          
-          this.timesheetService.getByUserProjectTeamLeader(this.f.Project.value,this.f.User.value).pipe(first()).subscribe(timesheets=>{
-              this.timesheets=timesheets;
-              console.log("GET request succesfully done");
-          
-              });
-
-      }
-
-      //gets activities by user and date and project
-      getByUserDateProjectTeamLeader()
-      {
-          this.timesheetService.getByUserDateProjectTeamLeader(this.f.User.value,this.f.Project.value,this.f.Date.value).pipe(first()).subscribe(timesheets=>{
-              this.timesheets=timesheets;
-              console.log("GET request succesfully done");
-          
-              });
-      }
-
-      getByProjectDate_Manager()
-      {
-        this.timesheetService.getByProjectDate_Manager(this.f.Project.value,this.f.Date.value).pipe(first()).subscribe(timesheets=>{
-            this.timesheets=timesheets;
-            console.log("GET request succesfully done");
-        
-            });
-      }
-
-      getByProject_Manager()
-      {
-        this.timesheetService.getByProject_Manager(this.f.Project.value).pipe(first()).subscribe(timesheets=>{
-            this.timesheets=timesheets;
-            console.log("GET request succesfully done");
-        
-            });
-      }
-
-      getByDate_Manager()
-      {
-        this.timesheetService. getByDate_Manager(this.f.Date.value,this.currentUser.idUser).pipe(first()).subscribe(timesheets=>{
-            this.timesheets=timesheets;
-            console.log("GET request succesfully done");
-        
-            });
-      }
-
-      getByUser_Manager()
-      {
-        this.timesheetService. getByUser_Manager(this.f.User.value,this.currentUser.idUser).pipe(first()).subscribe(timesheets=>{
-            this.timesheets=timesheets;
-            console.log("GET request succesfully done");
-        
-            });
-      }
-
-      getByUserDate_Manager()
-      {
-        this.timesheetService.getByUserDate_Manager(this.f.User.value,this.currentUser.idUser,this.f.Date.value).pipe(first()).subscribe(timesheets=>{
-            this.timesheets=timesheets;
-            console.log("GET request succesfully done");
-        
-            });
-      }
  
 
     onSubmit()
     {
-           
-            //if there is a projects selected
-            if(this.f.Project.value && this.f.Date.value && this.f.User.value=='')
-            {        
-                if(this.currentUser.idRole==2)
-                {
-                   this.getByProjectDateTeamLeader();
-                }
-                if(this.currentUser.idRole==3)
-                {
-                   this.getByProjectDate_Manager();
-                }                   
-            }
-            else if(this.f.Date.value && this.f.User.value=='' && this.f.Project.value=='')
-            {   
-                if(this.currentUser.idRole==2)
-                {
-                   this.getByDateTeamLeader();
-                }
-                if(this.currentUser.idRole==3)
-                {
-                    this.getByDate_Manager();
-                }         
-            }
-            else if(this.f.Project.value && this.f.User.value=='' && this.f.Date.value=='')
-            {
-                if(this.currentUser.idRole==2)
-                {
-                   this.getByProjectTeamLeader();
-                }
-                if(this.currentUser.idRole==3)
-                {
-                   this.getByProject_Manager();
-                }     
-            }
-            else if(this.f.User.value && this.f.Project.value=='' && this.f.Date.value=='')
-            {
-                if(this.currentUser.idRole==2)
-                {
-                   this.getByUserTeamLeader();
-                }
-                if(this.currentUser.idRole==3)
-                {
-                   this.getByUser_Manager();
-                }     
-            }
-            else if(this.f.User.value && this.f.Date.value && this.f.Project.value=='')
-            {                  
-                if(this.currentUser.idRole==2)
-                {
-                   this.getByUserDateTeamLeader();
-                }
-                if(this.currentUser.idRole==3)
-                {
-                   this.getByUserDate_Manager();
-                }     
-            }
-            else if(this.f.User.value && this.f.Project.value && this.f.Date.value=='')
-            {                  
-                this.getByUserProjectTeamLeader();
-            }
-            else if(this.f.User.value && this.f.Project.value && this.f.Date.value)
-            {
-                this.getByUserDateProjectTeamLeader();
-            }
-                
+       //this.isSelected=false;
+       this.getByFilter();
+
+       
+
+       console.log(this.timesheets);
+       
     }
+
+    // editActivity(timesheet:TimesheetView)
+    // {
+    //     timesheet=new TimesheetView();
+    //     this.timesheetService.data = timesheet;
+    //     this.router.navigate(['/addTimesheet']);
+    // }
+
+    
 }

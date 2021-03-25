@@ -8,6 +8,7 @@
     <Compile Remove="Controllers\User_HobbyController.cs" />
     <Compile Remove="Dtos\HobbyDto.cs" />
     <Compile Remove="Dtos\User_HobbyDto.cs" />
+    <Compile Remove="Helpers\PredicateBuilder.cs" />
     <Compile Remove="ProjectManagerService.cs" />
     <Compile Remove="Services\HobbyService.cs" />
     <Compile Remove="Services\QueryService.cs" />
@@ -16,6 +17,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.6" />
